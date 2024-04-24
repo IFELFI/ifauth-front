@@ -1,5 +1,4 @@
 <script>
-	import Info from '$lib/auth.svelte';
   import '../app.css';
 </script>
 
@@ -18,5 +17,4 @@
     justify-content: center;
     min-height: 100vh;
   }
-  
 </style>

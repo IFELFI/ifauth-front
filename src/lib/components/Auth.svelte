@@ -12,6 +12,9 @@
       <div class="guide-container">
         <slot name="guide" />
       </div>
+      <div class="alert-container">
+        <slot name="alert" />
+      </div>
     </div>
   </div>
   <div class="form-container">
@@ -43,5 +46,10 @@
     border-radius: 20px;
     background-color: white;
     justify-content: center;
+  }
+  .alert-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 </style>
