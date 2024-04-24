@@ -1,11 +1,9 @@
-import { AUTH_API } from '$env/static/private';
 import { signin } from '$lib/api/auth.js';
-import { setAccess } from '$lib/store.js';
+import { code } from '$lib/store.js';
 import { fail, redirect } from '@sveltejs/kit';
-import { setRefresh } from '$lib/cookie.js';
 
 export const actions = {
-	local: async ({ request, url, cookies }) => {
+	local: async ({ request, url }) => {
 		const redirectUrl: string | null = url.searchParams.get('redirect');
 
 		const data = await request.formData();
@@ -18,38 +16,25 @@ export const actions = {
 			});
 		}
 
-		if (redirectUrl) {
-			const url = AUTH_API + `/oauth/local`;
-			const response = await signin.local(url, email, password);
-
-			if (response.status !== 200) {
-				const { message } = await response.json();
-				return fail(401, {
-					error: message
-				});
-			}
-			const { code } = await response.json();
-			redirect(302, `${redirectUrl}?code=${code}`);
-		} else {
-			const url = AUTH_API + `/auth/local/login`;
-			const response = await signin.local(url, email, password);
-
-			if (response.status !== 200) {
-				const { message } = await response.json();
-				return fail(401, {
-					error: message
-				});
-			}
-
-			const setAccessResult = setAccess(response);
-			const setRefreshResult = setRefresh(cookies, response);
-			if (!setAccessResult || !setRefreshResult) {
-				return fail(500, {
-					error: 'Internal Server Error'
-				});
-			}
-
-			redirect(302, '/');
+		const response = await signin.local(email, password);
+		if (response.status !== 200) {
+			const { message } = await response.json();
+			return fail(401, {
+				error: message
+			});
 		}
+
+		const body = await response.json();
+		if (!body.code) {
+			return fail(401, {
+				error: 'Invalid response'
+			});
+		}
+		code.set(body.code);
+
+		if (redirectUrl) {
+			redirect(302, `${redirectUrl}?code=${body.code}`);
+		}
+		redirect(302, '/');
 	}
 };

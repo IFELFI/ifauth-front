@@ -1,18 +1,12 @@
-import { AUTH_API } from '$env/static/private';
 import { signup } from '$lib/api/auth.js';
-import { setRefresh } from '$lib/cookie';
-import { setAccess } from '$lib/store.js';
+import { code } from '$lib/store.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async () => {
 }
 
 export const actions = {
-	local: async ({ request, cookies }) => {
-		return fail(400, {
-			error: 'This route is not implemented yet.'
-		})
-
+	local: async ({ request }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const username = data.get('username')?.toString();
@@ -20,6 +14,8 @@ export const actions = {
 		const passwordConfirm = data.get('passwordConfirm')?.toString();
 
 		if (password !== passwordConfirm) {
+			console.log(password, passwordConfirm);
+			
 			return fail(400, {
 				error: 'Passwords do not match'
 			});
@@ -31,9 +27,7 @@ export const actions = {
 			});
 		}
 
-		const url = AUTH_API + `/auth/local/signup`;
-		const response = await signup.local(url, email, username, password);
-
+		const response = await signup.local(email, username, password);
 		if (response.status !== 200) {
 			const { message } = await response.json();
 			return fail(401, {
@@ -41,14 +35,13 @@ export const actions = {
 			});
 		}
 
-		const setAccessResult = setAccess(response);
-		const setRefreshResult = setRefresh(cookies, response);
-
-		if (!setAccessResult || !setRefreshResult) {
-			return fail(500, {
-				error: 'Internal Server Error'
+		const body = await response.json();
+		if (!body.code) {
+			return fail(401, {
+				error: 'Invalid response'
 			});
 		}
+		code.set(body.code);
 
 		redirect(302, '/');
 	}

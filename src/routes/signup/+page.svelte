@@ -18,7 +18,7 @@
     <input type="text" placeholder="email" name="email" required />
     <input type="text" placeholder="username" name="username" required />
     <input type="password" placeholder="password" name="password" required />
-    <input type="password" placeholder="confirm password" name="confirmPassword" required />
+    <input type="password" placeholder="confirm password" name="passwordConfirm" required />
     <div class="button-container">
       <a href="/signin">signin</a>
       <button type="submit">Sign up</button>  
