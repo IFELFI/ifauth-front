@@ -12,3 +12,18 @@ export const signin = {
     return response;
   }
 }
+
+export const signup = {
+  local: async (url: string, email: string, name: string, password: string) => {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ email, name, password }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin'
+    });
+
+    return response;
+  }
+}
