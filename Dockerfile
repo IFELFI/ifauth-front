@@ -11,4 +11,4 @@ COPY . /app
 RUN npm install -y && \
     npm run build
 
-ENTRYPOINT ["node", "build"]
+ENTRYPOINT ["node", "-r", "dotenv/config", "build"]
