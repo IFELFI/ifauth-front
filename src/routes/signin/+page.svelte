@@ -21,7 +21,7 @@
     <input type="text" placeholder="email" name="email" required />
     <input type="password" placeholder="password" name="password" required />
     <div class="button-container">
-      <a href="/signup">signup</a>
+      <a href="signup">signup</a>
       <button type="submit">Login</button>  
     </div>
     <input type="hidden" name="redirectUrl" value={redirectUrl} />

@@ -20,7 +20,7 @@
     <input type="password" placeholder="password" name="password" required />
     <input type="password" placeholder="confirm password" name="passwordConfirm" required />
     <div class="button-container">
-      <a href="/signin">signin</a>
+      <a href="signin">signin</a>
       <button type="submit">Sign up</button>  
     </div>
   </form>
