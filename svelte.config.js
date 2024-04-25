@@ -16,7 +16,7 @@ const config = {
 			out: 'build'
 		}),
 		csrf: {
-			checkOrigin: false
+			checkOrigin: true 
 		}
 	}
 };

@@ -11,4 +11,4 @@ COPY . /app
 RUN npm install -y && \
     npm run build
 
-CMD ["node", "build"]
+ENTRYPOINT ["node", "build"]

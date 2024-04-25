@@ -1,8 +1,11 @@
 <script>
   import Auth from '$lib/components/Auth.svelte';
   import Alert from '$lib/components/Alert.svelte';
+  import { page } from '$app/stores';
 
   export let form;
+
+  const redirectUrl = $page.url.searchParams.get('redirectUrl');
 </script>
 
 <Auth>
@@ -21,6 +24,7 @@
       <a href="/signup">signup</a>
       <button type="submit">Login</button>  
     </div>
+    <input type="hidden" name="redirectUrl" value={redirectUrl} />
   </form>
 
   <div slot="alert">
