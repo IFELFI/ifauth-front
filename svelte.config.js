@@ -18,6 +18,9 @@ const config = {
 		csrf: {
 			checkOrigin: true 
 		},
+		paths: {
+			base: '/ifauth'
+		}
 	}
 };
 
