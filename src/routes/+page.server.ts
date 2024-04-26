@@ -9,7 +9,7 @@ export async function load({ cookies }) {
 		const setAccessResult = setAccess(issueResponse);
 		const setRefreshResult = setRefresh(cookies, issueResponse);
 		if (!setAccessResult || !setRefreshResult) {
-			throw redirect(307, '/signin');
+			throw redirect(307, './signin');
 		}
 		return;
 	}
@@ -26,10 +26,10 @@ export async function load({ cookies }) {
 		const setAccessResult = setAccess(refreshResponse);
 		const setRefreshResult = setRefresh(cookies, refreshResponse);
 		if (!setAccessResult || !setRefreshResult) {
-			throw redirect(307, '/signin');
+			throw redirect(307, './signin');
 		}
 		return;
 	}
 
-	throw redirect(307, '/signin');
+	throw redirect(307, './signin');
 }

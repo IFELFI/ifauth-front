@@ -43,6 +43,6 @@ export const actions = {
 		}
 		code.set(body.code);
 
-		redirect(302, '/');
+		redirect(302, '../');
 	}
 };
