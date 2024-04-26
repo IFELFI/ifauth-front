@@ -32,7 +32,7 @@ export const actions = {
 			if (redirectUrl) {
 				redirect(302, `${redirectUrl}?code=${body.code}`);
 			}
-			redirect(302, '../');
+			redirect(302, './');
 		}
 
 		return errorHandler(response);
