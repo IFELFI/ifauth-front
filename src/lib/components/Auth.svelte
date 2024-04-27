@@ -4,7 +4,7 @@
 
 <div class="auth-container">
   <div class="info-container">
-    <Logo />
+    <Logo size={'2rem'}/>
     <div class="info">
       <div class="path-container">
         <slot name="path" />
@@ -41,10 +41,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: clamp(400px, 50%, 1000px);
-    height: 40vh;
+    min-height: 300px;
     padding: 3rem;
     border-radius: 20px;
-    background-color: white;
+    background-color: whitesmoke;
     justify-content: center;
   }
   .alert-container {

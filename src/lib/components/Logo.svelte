@@ -1,15 +1,20 @@
-<div class="logo">
-  <div class="logo-front">
-    IF
-  </div>
-  <div class="logo-back">
-    ELFI
+<script lang="ts">
+  export let size: string = '2rem';
+  export let text: string = 'IFELFI';
+
+  const logoStyle = `
+      font-size: ${size};
+  `;
+</script>
+
+<div class="logo" style={logoStyle}>
+  <div class="text">
+    {text}
   </div>
 </div>
 
 <style>
   .logo {
-    text-transform: 'uppercase';
     align-items: left;
     display: flex;
     flex-direction: row;
@@ -17,13 +22,10 @@
     font-weight: bold;
   }
 
-  .logo-front {
-    color: rgb(255, 115, 0);
-  }
-
-  .logo-back {
+  .text {
     background: linear-gradient(90deg, rgb(255, 115, 0), rgb(255, 230, 0));
     color: transparent;
     background-clip: text;
+    text-transform: uppercase;
   }
 </style>

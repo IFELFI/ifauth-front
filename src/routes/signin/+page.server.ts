@@ -8,7 +8,7 @@ export const actions = {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
-		const redirectUrl = data.get('redirectUrl')?.toString();
+		const redirectUrl = data.get('redirect')?.toString();
 
 		if (!email || !password) {
 			return fail(400, {

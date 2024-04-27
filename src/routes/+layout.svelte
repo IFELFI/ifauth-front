@@ -5,8 +5,9 @@
 <title>
   IFELFI
 </title>
+
 <main>
-    <slot />
+  <slot />
 </main>
 
 <style>
