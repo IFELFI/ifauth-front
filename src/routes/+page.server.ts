@@ -5,8 +5,8 @@ import { access, setAccess } from '$lib/store';
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ cookies }) {
-
   const profileResponse = await user.profile();
+	
   if (profileResponse && profileResponse.status === 200) {
     const profile = await profileResponse.json();
     if (profile) {
@@ -18,18 +18,15 @@ export async function load({ cookies }) {
 
 	const signinUrl = './signin';
 
-	const refreshResponse = await token.refresh();
-	const issueResponse = await token.issue();
+	const tokenResponse = await token.generate();
 
-	if (issueResponse && issueResponse.status === 200) {
-		const setAccessResult = setAccess(issueResponse);
-		const setRefreshResult = setRefresh(cookies, issueResponse);
-		if (!setAccessResult || !setRefreshResult) {
-			throw redirect(301, signinUrl);
-		}
-	} else if (refreshResponse && refreshResponse.status === 200) {
-		const setAccessResult = setAccess(refreshResponse);
-		const setRefreshResult = setRefresh(cookies, refreshResponse);
+	if (!tokenResponse) {
+		throw redirect(301, signinUrl);
+	}
+
+	if (tokenResponse.status === 200) {
+		const setAccessResult = setAccess(tokenResponse);
+		const setRefreshResult = setRefresh(cookies, tokenResponse);
 		if (!setAccessResult || !setRefreshResult) {
 			throw redirect(301, signinUrl);
 		}
@@ -38,7 +35,7 @@ export async function load({ cookies }) {
 	let accessToken: string | null = null;
 	access.subscribe((value) => (accessToken = value));
 	if (accessToken) {
-    redirect(301, './');
+
 	}
 
 	throw redirect(307, signinUrl);

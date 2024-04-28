@@ -1,5 +1,6 @@
 import { AUTH_API } from '$env/static/private';
 import { access, code } from '$lib/store';
+import { apiFetch } from './util/fetch';
 
 export const token = {
 	issue: async () => {
@@ -11,7 +12,7 @@ export const token = {
 		}
 
 		const url = AUTH_API + `/token/issue?code=${currentCode}`;
-		const response = await fetch(url, {
+		const response = await apiFetch(url, {
 			method: 'GET',
 			credentials: 'same-origin'
 		});
@@ -27,7 +28,7 @@ export const token = {
 			return null;
 		}
 
-		const response = await fetch(url, {
+		const response = await apiFetch(url, {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${accessToken}`
@@ -36,5 +37,19 @@ export const token = {
 		});
 
 		return response;
+	},
+
+	generate: async () => {
+		const issueResponse = await token.issue();
+		if (issueResponse && issueResponse.status === 200) {
+			return issueResponse;
+		}
+
+		const refreshResponse = await token.refresh();
+		if (refreshResponse && refreshResponse.status === 200) {
+			return refreshResponse;
+		}
+
+		return null;
 	}
 };

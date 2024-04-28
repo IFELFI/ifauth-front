@@ -1,14 +1,11 @@
 import { AUTH_API } from "$env/static/private"
+import { apiFetch } from "./util/fetch";
 
 export const user = {
   logout: async () => {
     const url = AUTH_API + '/user/logout';
-    const response = await fetch(url, {
+    const response = await apiFetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'same-origin'
     })
 
     return response;
@@ -16,12 +13,8 @@ export const user = {
 
   profile: async () => {
     const url = AUTH_API + '/user/profile';
-    const response = await fetch(url, {
+    const response = await apiFetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'same-origin'
     })
 
     return response;
