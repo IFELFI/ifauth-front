@@ -38,7 +38,6 @@ export const token = {
 
 		return response;
 	},
-
 	generate: async () => {
 		const issueResponse = await token.issue();
 		if (issueResponse && issueResponse.status === 200) {
