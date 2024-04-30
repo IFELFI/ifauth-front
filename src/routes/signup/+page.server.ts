@@ -2,11 +2,10 @@ import { signup } from '$lib/api/auth.js';
 import { code } from '$lib/store.js';
 import { fail, redirect } from '@sveltejs/kit';
 
-export const load = async () => {
-}
+export const load = async () => {};
 
 export const actions = {
-	local: async ({ request }) => {
+	local: async ({ request }: { request: Request }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const username = data.get('username')?.toString();
@@ -15,7 +14,7 @@ export const actions = {
 
 		if (password !== passwordConfirm) {
 			console.log(password, passwordConfirm);
-			
+
 			return fail(400, {
 				error: 'Passwords do not match'
 			});

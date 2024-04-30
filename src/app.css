@@ -35,8 +35,11 @@ form > input {
   width: 100%;
 }
 
-.button-container > button {
+.button-container > .btn {
   margin-left: 20px;
+}
+
+.btn {
   padding: 10px 20px;
   border: var(--border);
   border-radius: 20px;
@@ -44,4 +47,9 @@ form > input {
   color: white;
   font-size: 12px;
   font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #3c4ae8;
+  cursor: pointer;
 }

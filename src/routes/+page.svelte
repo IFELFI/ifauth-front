@@ -1,14 +1,17 @@
-<script>
+<script lang="ts">
   import Logo from '$lib/components/Logo.svelte';
+	import Profile from '$lib/components/Profile.svelte';
+	import type { pageData } from './$types';
+	import { home } from '$lib/store';
 
-  export const data;
+  export let data: pageData;
 </script>
 
 <div class="container">
   <Logo size={'3rem'} text={'ifauth'}/>
   <div class="info">
     <div class="info-title">
-      IFELFI Authentication Service
+      Manage your profile
     </div>
     <div class="info-text">
       IFAUTH is an integrated authentication service for IFELFI
@@ -17,9 +20,7 @@
     </div>
   </div>
   <div class="column-container">
-    <button type="button">
-      Profile
-    </button>
+    <Profile profile={data.profile} />
   </div>
 </div>
 
@@ -36,6 +37,8 @@
     padding: 2rem;
   }
   .info {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;

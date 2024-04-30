@@ -10,13 +10,14 @@ export const user = {
 
     return response;
   },
-
   profile: async () => {
     const url = AUTH_API + '/user/profile';
     const response = await apiFetch(url, {
       method: 'GET',
     })
 
+    console.log(response);
+    
     return response;
   }
 }

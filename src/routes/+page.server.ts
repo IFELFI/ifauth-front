@@ -1,42 +1,52 @@
 import { token } from '$lib/api/token.js';
 import { user } from '$lib/api/user.js';
-import { setRefresh } from '$lib/cookie';
-import { access, setAccess } from '$lib/store';
 import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+import type { replyProfile } from '$lib/api/interfaces/reply.interface';
+import { code, home } from '$lib/store';
+import { HOME_URL } from '$env/static/private';
 
-export async function load({ cookies }) {
-  const profileResponse = await user.profile();
-	
-  if (profileResponse && profileResponse.status === 200) {
-    const profile = await profileResponse.json();
-    if (profile) {
-      return {
-        data: profile
-      };
+export const load: PageServerLoad = async ({ cookies }) => {
+	const signinUrl = './signin';
+  home.set(HOME_URL);
+  return {
+    profile: {
+      email: 'test@ifelfi.com',
+      nickname: 'test',
+      imageUrl: null,
+      joinDate: new Date(),
+      updateDate: new Date(),
+      provider: 'local'
     }
   }
 
-	const signinUrl = './signin';
+  if (code.subscribe((value) => value) !== null) {
+    const result = await token.issue(cookies);
+    if (result.result === false) {
+      throw redirect(307, signinUrl);
+    }
+  }
 
-	const tokenResponse = await token.generate();
-
-	if (!tokenResponse) {
-		throw redirect(301, signinUrl);
-	}
-
-	if (tokenResponse.status === 200) {
-		const setAccessResult = setAccess(tokenResponse);
-		const setRefreshResult = setRefresh(cookies, tokenResponse);
-		if (!setAccessResult || !setRefreshResult) {
-			throw redirect(301, signinUrl);
+	const profileResponse = await user.profile();
+	const validateResult = await token.validate(profileResponse, cookies);
+	if (
+		validateResult.result === false &&
+		validateResult.refreshResponse &&
+		validateResult.refreshResponse.status === 200
+	) {
+		const profileResponseAfterRefresh = await user.profile();
+		if (profileResponseAfterRefresh.status === 200) {
+      const replyData = await profileResponseAfterRefresh.json() as replyProfile;
+			return {
+				profile: replyData.data
+			};
 		}
-	}
-
-	let accessToken: string | null = null;
-	access.subscribe((value) => (accessToken = value));
-	if (accessToken) {
-
+	} else if (validateResult.result === true && profileResponse.status === 200) {
+    const replyData = await profileResponse.json() as replyProfile;
+		return {
+			profile: replyData.data
+		};
 	}
 
 	throw redirect(307, signinUrl);
-}
+};

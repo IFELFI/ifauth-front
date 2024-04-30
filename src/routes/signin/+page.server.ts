@@ -4,7 +4,7 @@ import { code } from '$lib/store.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const actions = {
-	local: async ({ request }) => {
+	local: async ({ request }: { request: Request }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();

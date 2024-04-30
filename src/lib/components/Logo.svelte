@@ -1,6 +1,13 @@
 <script lang="ts">
+	import { home } from "$lib/store";
+	import { redirect } from "@sveltejs/kit";
+
   export let size: string = '2rem';
   export let text: string = 'IFELFI';
+  let homeUrl: string = '/';
+  home.subscribe((value) => {
+    homeUrl = value;
+  });
 
   const logoStyle = `
       font-size: ${size};
@@ -8,9 +15,9 @@
 </script>
 
 <div class="logo" style={logoStyle}>
-  <div class="text">
+  <a href={homeUrl} class="text">
     {text}
-  </div>
+  </a>
 </div>
 
 <style>

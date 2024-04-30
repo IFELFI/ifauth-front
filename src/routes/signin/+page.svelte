@@ -22,7 +22,7 @@
     <input type="password" placeholder="password" name="password" required />
     <div class="button-container">
       <a href="signup">signup</a>
-      <button type="submit">Login</button>  
+      <button type="submit" class="btn">Login</button>  
     </div>
     <input type="hidden" name="redirectUrl" value={redirectUrl} />
   </form>
