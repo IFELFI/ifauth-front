@@ -8,8 +8,7 @@
       font-size: ${size};
   `;
 
-  $: homeUrl = getContext<string>('home');
-
+  const homeUrl = getContext<string>('home') ?? '/';
 </script>
 
 <div class="logo" style={logoStyle}>

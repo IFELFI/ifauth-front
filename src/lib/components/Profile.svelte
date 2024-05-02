@@ -2,13 +2,12 @@
 	import type { profile } from "$lib/api/interfaces/data.interface";
 	import Loading from "./Loading.svelte";
   import defaultImage from "$lib/assets/default.svg";
-	import { lang } from "$lib/store";
+	import { getContext } from "svelte";
+		import type { Writable } from "svelte/store";
 
   export let profile: profile | null;
-  export let language: string = 'en';
-  $: lang.subscribe((value) => {
-    language = value;
-  });
+
+  $: language = getContext<Writable<string>>('language');
 </script>
 
 {#if profile}
@@ -37,7 +36,7 @@
         joined
       </div>
       <div class="info-text">
-        {new Intl.DateTimeFormat(language, {
+        {new Intl.DateTimeFormat($language, {
           year: 'numeric',
           month: 'long',
           day: 'numeric'
@@ -47,7 +46,7 @@
         updated
       </div>
       <div class="info-text">
-        {new Intl.DateTimeFormat(language, {
+        {new Intl.DateTimeFormat($language, {
           year: 'numeric',
           month: 'long',
           day: 'numeric'
