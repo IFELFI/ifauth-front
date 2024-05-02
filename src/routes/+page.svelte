@@ -2,13 +2,12 @@
   import Logo from '$lib/components/Logo.svelte';
 	import Profile from '$lib/components/Profile.svelte';
 	import type { pageData } from './$types';
-	import { home } from '$lib/store';
 
   export let data: pageData;
 </script>
 
 <div class="container">
-  <Logo size={'3rem'} text={'ifauth'}/>
+  <Logo size={'3rem'} text={'ifauth'} />
   <div class="info">
     <div class="info-title">
       Manage your profile

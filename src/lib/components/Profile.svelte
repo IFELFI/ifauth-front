@@ -41,7 +41,7 @@
           year: 'numeric',
           month: 'long',
           day: 'numeric'
-        }).format(profile.joinDate)}
+        }).format(Date.parse(profile.joinDate))}
       </div>
       <div class="info-title">
         updated
@@ -51,7 +51,7 @@
           year: 'numeric',
           month: 'long',
           day: 'numeric'
-        }).format(profile.updateDate)}
+        }).format(Date.parse(profile.updateDate))}
       </div>
     </div>
   </div>

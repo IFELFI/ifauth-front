@@ -16,8 +16,6 @@ export const user = {
       method: 'GET',
     })
 
-    console.log(response);
-    
     return response;
   }
 }

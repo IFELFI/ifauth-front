@@ -3,22 +3,10 @@ import { user } from '$lib/api/user.js';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { replyProfile } from '$lib/api/interfaces/reply.interface';
-import { code, home } from '$lib/store';
-import { HOME_URL } from '$env/static/private';
+import { code } from '$lib/store';
 
 export const load: PageServerLoad = async ({ cookies }) => {
 	const signinUrl = './signin';
-  home.set(HOME_URL);
-  return {
-    profile: {
-      email: 'test@ifelfi.com',
-      nickname: 'test',
-      imageUrl: null,
-      joinDate: new Date(),
-      updateDate: new Date(),
-      provider: 'local'
-    }
-  }
 
   if (code.subscribe((value) => value) !== null) {
     const result = await token.issue(cookies);

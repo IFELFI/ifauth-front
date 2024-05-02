@@ -1,5 +1,11 @@
-<script>
-  import '../app.css';
+<script lang="ts">
+	import '../app.css';
+  import type { layoutData } from './$types';
+  import { setContext } from 'svelte';
+
+  export let data: layoutData;
+	
+  setContext('home', data.homeUrl);
 </script>
 
 <title>

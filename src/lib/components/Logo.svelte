@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { home } from "$lib/store";
-	import { redirect } from "@sveltejs/kit";
+	import { getContext } from "svelte";
 
   export let size: string = '2rem';
   export let text: string = 'IFELFI';
-  let homeUrl: string = '/';
-  home.subscribe((value) => {
-    homeUrl = value;
-  });
 
   const logoStyle = `
       font-size: ${size};
   `;
+
+  $: homeUrl = getContext<string>('home');
+
 </script>
 
 <div class="logo" style={logoStyle}>

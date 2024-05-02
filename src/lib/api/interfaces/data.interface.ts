@@ -2,8 +2,8 @@ export interface profile {
 	email: string;
 	nickname: string;
 	imageUrl: string | null;
-	joinDate: Date;
-	updateDate: Date;
+	joinDate: string;
+	updateDate: string;
 	provider: provider_type;
 }
 
