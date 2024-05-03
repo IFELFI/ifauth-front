@@ -7,6 +7,8 @@
 
   export let profile: profile | null;
 
+  console.log(profile);
+
   $: language = getContext<Writable<string>>('language');
 </script>
 
@@ -151,7 +153,6 @@
 
   .info-text {
     font-size: 0.8rem;
-    text-transform: capitalize;
     border: 1px solid gray;
     align-content: center;
     width: 100%;

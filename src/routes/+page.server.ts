@@ -5,10 +5,11 @@ import type { PageServerLoad } from './$types';
 import type { replyProfile } from '$lib/api/interfaces/reply.interface';
 import { code } from '$lib/store';
 import { HOME_URL } from '$env/static/private';
+import path from 'path';
 
 export const load: PageServerLoad = async ({ cookies }) => {
-	const signinUrl = HOME_URL + '/signin';
-
+	const signinUrl = path.join(HOME_URL, 'signin');
+	
   if (code.subscribe((value) => value) !== null) {
     const result = await token.issue(cookies);
     if (result.result === false) {
