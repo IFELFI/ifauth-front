@@ -44,7 +44,7 @@
     min-height: 300px;
     padding: 3rem;
     border-radius: 20px;
-    background-color: whitesmoke;
+    background-color: white;
     justify-content: center;
   }
   .alert-container {
