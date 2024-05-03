@@ -1,0 +1,16 @@
+/.svelte-kit
+/build
+/node_modules
+
+/Dockerfile
+/.dockerignore
+
+/.git
+/.gitignore
+
+/.prettierrc
+/.prettierignore
+/LICENSE
+/README.md
+/.eslintrc.cjs
+/.eslintignore
