@@ -1,3 +1,4 @@
+import { HOME_URL } from '$env/static/private';
 import { signin } from '$lib/api/auth.js';
 import { errorHandler } from '$lib/api/errorHandler.js';
 import { code } from '$lib/store.js';
@@ -32,7 +33,7 @@ export const actions = {
 			if (redirectUrl) {
 				redirect(302, `${redirectUrl}?code=${body.code}`);
 			}
-			redirect(302, './');
+			redirect(302, HOME_URL);
 		}
 
 		return errorHandler(response);

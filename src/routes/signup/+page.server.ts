@@ -1,3 +1,4 @@
+import { HOME_URL } from '$env/static/private';
 import { signup } from '$lib/api/auth.js';
 import { code } from '$lib/store.js';
 import { fail, redirect } from '@sveltejs/kit';
@@ -13,8 +14,6 @@ export const actions = {
 		const passwordConfirm = data.get('passwordConfirm')?.toString();
 
 		if (password !== passwordConfirm) {
-			console.log(password, passwordConfirm);
-
 			return fail(400, {
 				error: 'Passwords do not match'
 			});
@@ -27,7 +26,7 @@ export const actions = {
 		}
 
 		const response = await signup.local(email, username, password);
-		if (response.status !== 200) {
+		if (response.status !== 201) {
 			const { message } = await response.json();
 			return fail(401, {
 				error: message
@@ -42,6 +41,6 @@ export const actions = {
 		}
 		code.set(body.code);
 
-		redirect(302, '../');
+		redirect(302, HOME_URL);
 	}
 };

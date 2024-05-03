@@ -4,9 +4,10 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { replyProfile } from '$lib/api/interfaces/reply.interface';
 import { code } from '$lib/store';
+import { HOME_URL } from '$env/static/private';
 
 export const load: PageServerLoad = async ({ cookies }) => {
-	const signinUrl = './signin';
+	const signinUrl = HOME_URL + '/signin';
 
   if (code.subscribe((value) => value) !== null) {
     const result = await token.issue(cookies);
