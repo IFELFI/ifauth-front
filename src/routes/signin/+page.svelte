@@ -5,7 +5,7 @@
 
   export let form;
 
-  const redirectUrl = $page.url.searchParams.get('redirectUrl');
+  $: redirectUrl = $page.url.searchParams.get('redirect_url');
 </script>
 
 <Auth>
