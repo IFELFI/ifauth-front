@@ -39,18 +39,14 @@ export const actions = {
 		}
 
 		const response = await signin.local(email, password, autoLogin === 'on');
-
 		if (response.status === 200) {
 			const body = await response.json();
-
 			if (!body.code) {
 				return fail(401, {
 					error: 'Invalid response'
 				});
 			}
-
 			code.set(body.code);
-
 			if (redirectUrl) {
 				redirect(302, `${redirectUrl}?code=${body.code}`);
 			} else {
