@@ -19,7 +19,7 @@
 
 <div>
   {#if $isActivated} 
-      <div class={`alert-box ${type}`} in:receive={{key:1}} out:send={{key:1}}>
+      <div class={`alertCox ${type}`} in:receive={{key:1}} out:send={{key:1}}>
         <p>
           {message}
         </p>
@@ -28,7 +28,7 @@
 </div>
 
 <style>
-  .alert-box {
+  .alertCox {
     padding: 1rem;
     background-color: grey;
     border-radius: 10px;

@@ -1,9 +1,9 @@
 <script lang="ts">
   import Logo from '$lib/components/Logo.svelte';
 	import Profile from '$lib/components/Profile.svelte';
-	import type { pageData } from './$types';
+	import type { MainPageData } from './$types';
 
-  export let data: pageData;
+  export let data: MainPageData;
 </script>
 
 <div class="container">

@@ -13,41 +13,41 @@
 </script>
 
 {#if profile}
-<div class="profile-container">
-  <div class='card-container'>
-    <div class="image-container">
+<div class="profileContainer">
+  <div class='cardContainer'>
+    <div class="imageContainer">
       <img src={profile.imageUrl ?? defaultImage} alt="Not Found"/>
       <div class="middle">
         <div class="text">change image</div>
       </div>
     </div>
-    <div class="info-container">
+    <div class="infoContainer">
       <div class="info-title">
         nickname
       </div>
-      <div class="info-text">
+      <div class="infoText">
         {profile.nickname}
       </div>
-      <div class="info-title">
+      <div class="infoTitle">
         email
       </div>
-      <div class="info-text">
+      <div class="infoText">
         {profile.email}
       </div>
-      <div class="info-title">
+      <div class="infoTitle">
         joined
       </div>
-      <div class="info-text">
+      <div class="infoText">
         {new Intl.DateTimeFormat($language, {
           year: 'numeric',
           month: 'long',
           day: 'numeric'
         }).format(Date.parse(profile.joinDate))}
       </div>
-      <div class="info-title">
+      <div class="infoTitle">
         updated
       </div>
-      <div class="info-text">
+      <div class="infoText">
         {new Intl.DateTimeFormat($language, {
           year: 'numeric',
           month: 'long',
@@ -67,7 +67,7 @@
 {/if}
 
 <style>
-  .profile-container {
+  .profileContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,7 +75,7 @@
     width: 100%;
     height: 100%;
   }
-  .card-container {
+  .cardContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
@@ -88,7 +88,7 @@
     margin-bottom: 2rem;
   }
 
-  .image-container {
+  .imageContainer {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -96,7 +96,7 @@
     align-items: center;
   }
 
-  .image-container img {
+  .imageContainer img {
     width: 300px;
     height: 300px;
     border-radius: 50%;
@@ -116,16 +116,16 @@
     text-align: center;
   }
 
-  .image-container:hover img {
+  .imageContainer:hover img {
     cursor: pointer;
     filter: brightness(0.8);
   }
 
-  .image-container:hover .middle {
+  .imageContainer:hover .middle {
     opacity: 1;
   }
 
-  .text{
+  .text {
     opacity: 0.8;
     padding: 10px;
     border-radius: 20px;
@@ -134,24 +134,24 @@
     background-color: var(--button-color);
   }
 
-  .info-container {
+  .infoContainer {
     display: grid;
     grid-template-columns: 0.5fr 1fr;
     width: 80%;
     row-gap: 1rem;
   }
 
-  .info-title {
+  .infoTitle {
     font-size: 1.25rem;
     text-transform: capitalize;
     margin-right: 1rem;
   }
 
-  .info-title::after {
+  .infoTitle::after {
     content: ':';
   }
 
-  .info-text {
+  .infoText {
     font-size: 0.8rem;
     border: 1px solid gray;
     align-content: center;

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
 	import '../app.css';
-  import type { layoutData } from './$types';
+  import type { LayoutData } from './$types';
   import { setContext } from 'svelte';
 
-  export let data: layoutData;
+  export let data: LayoutData;
 
   const language = writable<string>('ko');
 	

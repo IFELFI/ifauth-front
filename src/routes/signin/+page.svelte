@@ -20,10 +20,17 @@
   <form slot="form" method="POST" action="?/local">
     <input type="text" placeholder="email" name="email" required />
     <input type="password" placeholder="password" name="password" required />
-    <input type="checkbox">
-    <div class="button-container">
-      <a href="signup">signup</a>
-      <button type="submit" class="btn">Login</button>  
+    <div class="bottomContainer">
+      <div class="checkBoxContainer">
+        <input type="checkbox" name="autoLogin">
+        <p >
+          do you want to stay signed in?
+        </p>
+      </div>
+      <div class="buttonContainer">
+        <a href="signup">signup</a>
+        <button type="submit" class="btn">Login</button>  
+      </div>
     </div>
     <input type="hidden" name="redirectUrl" value={redirectUrl} />
   </form>

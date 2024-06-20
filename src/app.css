@@ -19,24 +19,39 @@ form {
 }
 
 form > input {
-  margin: 10px 0;
+  margin: 10px;
   padding: 10px;
   width: 100%;
   border: var(--border);
   border-radius: 5px;
 }
 
-.button-container {
+.bottomContainer {
   display: flex;
-  margin-top: 20px;
   flex-direction: row;
-  align-items: center;
-  justify-content: right;
   width: 100%;
 }
 
-.button-container > .btn {
-  margin-left: 20px;
+.checkBoxContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  width: 100%;
+} 
+
+.checkBoxContainer > input {
+  margin-right: 0.5rem;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+}
+
+.buttonContainer > .btn {
+  margin-left: 1rem;
 }
 
 .btn {

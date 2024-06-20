@@ -2,44 +2,44 @@
 	import Logo from "./Logo.svelte";
 </script>
 
-<div class="auth-container">
-  <div class="info-container">
+<div class="authContainer">
+  <div class="infoContainer">
     <Logo size={'2rem'}/>
     <div class="info">
-      <div class="path-container">
+      <div class="pathContainer">
         <slot name="path" />
       </div>
-      <div class="guide-container">
+      <div class="guideContainer">
         <slot name="guide" />
       </div>
-      <div class="alert-container">
+      <div class="alertContainer">
         <slot name="alert" />
       </div>
     </div>
   </div>
-  <div class="form-container">
+  <div class="formContainer">
     <slot name="form"/>
   </div>
 </div>
 
 <style>
-  .info-container {
+  .infoContainer {
     display: flex;
     flex-direction: column;
   }
-  .path-container {
+  .pathContainer {
     font-size: 2.5rem;
   }
-  .guide-container {
+  .guideContainer {
     font-size: 1rem;
   }
-  .form-container {
+  .formContainer {
     flex-direction: column;
     align-self: center;
   }
-  .auth-container {
+  .authContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.5fr;
     width: clamp(400px, 50%, 1000px);
     min-height: 300px;
     padding: 3rem;
@@ -47,7 +47,7 @@
     background-color: white;
     justify-content: center;
   }
-  .alert-container {
+  .alertContainer {
     position: absolute;
     bottom: 0;
     right: 0;
