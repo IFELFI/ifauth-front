@@ -6,7 +6,7 @@ export const signin = {
     const url = AUTH_API + '/auth/local/login';
     const response = await apiFetch(url, {
       method: 'POST',
-      body: JSON.stringify({ email, password, auto }),
+      body: JSON.stringify({ email, password, autoLogin: auto }),
     });
 
     return response;
