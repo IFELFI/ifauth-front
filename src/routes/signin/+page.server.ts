@@ -1,8 +1,8 @@
 import { HOME_URL } from '$env/static/private';
-import { signin } from '$lib/api/auth.js';
+import { issueAuto, signin } from '$lib/api/auth.js';
 import { errorHandler } from '$lib/api/errorHandler.js';
 import { code } from '$lib/store.js';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type Cookies } from '@sveltejs/kit';
 import type { SigninPageServerLoad } from '../$types.js';
 
 export const load: SigninPageServerLoad = async ({ cookies, url }) => {
@@ -25,7 +25,7 @@ export const load: SigninPageServerLoad = async ({ cookies, url }) => {
 };
 
 export const actions = {
-	local: async ({ request }: { request: Request }) => {
+	local: async ({ request }: { request: Request, cookies: Cookies }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
@@ -45,6 +45,9 @@ export const actions = {
 				return fail(401, {
 					error: 'Invalid response'
 				});
+			}
+			if(body.autoAuthCode) {
+				await issueAuto.issue(body.autoAuthCode);
 			}
 			code.set(body.code);
 			if (redirectUrl) {

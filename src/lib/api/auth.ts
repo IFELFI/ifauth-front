@@ -8,7 +8,6 @@ export const signin = {
       method: 'POST',
       body: JSON.stringify({ email, password, autoLogin: auto }),
     });
-
     return response;
   },
   auto: async () => {
@@ -16,7 +15,17 @@ export const signin = {
     const response = await apiFetch(url, {
       method: 'GET',
     });
+    return response;
+  }
+}
 
+export const issueAuto = {
+  issue: async (code: string) => {
+    const url = AUTH_API + `/auth/auto/issue?code=${code}`
+    const response = await apiFetch(url, {
+      method: 'GET',
+      credentials: 'same-origin',
+    });
     return response;
   }
 }
@@ -28,7 +37,6 @@ export const signup = {
       method: 'POST',
       body: JSON.stringify({ email, name, password }),
     });
-
     return response;
   }
 }
