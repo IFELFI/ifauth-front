@@ -20,6 +20,7 @@
   <form slot="form" method="POST" action="?/local">
     <input type="text" placeholder="email" name="email" required />
     <input type="password" placeholder="password" name="password" required />
+    <input type="checkbox">
     <div class="button-container">
       <a href="signup">signup</a>
       <button type="submit" class="btn">Login</button>  
