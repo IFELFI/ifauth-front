@@ -18,7 +18,8 @@ export const signin = {
 			headers: {
 				'Access-Control-Allow-Credentials': 'true',
 				'Set-Cookie': 'refresh=true; Path=/; HttpOnly; SameSite=Strict'
-			}
+			},
+			mode: 'cors'
 		});
 		
 		return response;
