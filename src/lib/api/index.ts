@@ -5,7 +5,7 @@ export const api = async (url: string, options: RequestInit) => {
 	access.subscribe((value) => (accessToken = value));
 	const response = await fetch(url, {
 		...options,
-		credentials: 'same-origin',
+		credentials: 'include',
 		headers: {
 			...options.headers,
 			Authorization: `Bearer ${accessToken}`,

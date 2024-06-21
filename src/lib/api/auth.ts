@@ -25,7 +25,7 @@ export const issueAuto = {
 		const url = AUTH_API + `/auth/auto/issue?code=${code}`;
 		const response = await api(url, {
 			method: 'GET',
-			credentials: 'same-origin'
+			credentials: 'include'
 		});
 		return response;
 	}

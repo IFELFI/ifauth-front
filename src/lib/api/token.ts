@@ -16,7 +16,7 @@ export const token = {
 		const url = AUTH_API + `/token/issue?code=${currentCode}`;
 		const response = await api(url, {
 			method: 'GET',
-			credentials: 'same-origin'
+			credentials: 'include'
 		});
 
 		code.set(null);
@@ -45,7 +45,7 @@ export const token = {
 			headers: {
 				Authorization: `Bearer ${accessToken}`
 			},
-			credentials: 'same-origin'
+			credentials: 'include'
 		});
 
 		if (response.status === 200) {
