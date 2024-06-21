@@ -14,7 +14,7 @@ export const load: SigninPageServerLoad = async ({ cookies, url }) => {
 		const response = await signin.auto(cookies);
 		console.log(response);
 		if (response.status === 200) {
-			const body = await response.json();
+			const body = await response.data;
 			if (!body.code) {
 				return;
 			}
