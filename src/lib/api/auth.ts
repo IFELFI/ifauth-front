@@ -19,7 +19,7 @@ export const signin = {
 			headers: {
 				'Access-Control-Allow-Credentials': 'true',
 				'Access-Control-Allow-Origin': 'http://ifelfi.com',
-				'set-cookie': cookies.get('autoLogin') || ''
+				'set-cookie': cookies.get('autoLogin') || 'sdfdsf'
 			},
 			mode: 'cors'
 		});
