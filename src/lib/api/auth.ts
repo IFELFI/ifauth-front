@@ -14,9 +14,10 @@ export const signin = {
 		const url = AUTH_API + '/auth/auto/verify';
 		const response = await api(url, {
 			method: 'GET',
-			credentials: 'same-origin',
+			credentials: 'include',
 			headers: {
 				'Access-Control-Allow-Credentials': 'true',
+				'Access-Control-Allow-Origin': 'http://ifelfi.com'
 			},
 			mode: 'cors'
 		});
