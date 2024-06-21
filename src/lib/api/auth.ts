@@ -17,7 +17,6 @@ export const signin = {
 			credentials: 'include',
 			headers: {
 				'Access-Control-Allow-Credentials': 'true',
-				'Set-Cookie': 'refresh=true; Path=/; HttpOnly; SameSite=Strict'
 			},
 			mode: 'cors'
 		});
