@@ -11,9 +11,11 @@ export const load: SigninPageServerLoad = async ({ cookies, url }) => {
 	console.log('autoLogin ' + cookies.get('autoLogin'));
 	
 	if (cookies.get('autoLogin')) {
-		const response = await signin.auto(cookies);
+		const response = await signin.auto(cookies).catch((e) => {
+			console.error(e);
+		})
 		console.log(response);
-		if (response.status === 200) {
+		if (response?.status === 200) {
 			const body = await response.data;
 			if (!body.code) {
 				return;
