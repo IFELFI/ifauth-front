@@ -7,8 +7,6 @@
 
   export let profile: profile | null;
 
-  console.log(profile);
-
   $: language = getContext<Writable<string>>('language');
 </script>
 
