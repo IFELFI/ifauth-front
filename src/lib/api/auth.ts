@@ -14,7 +14,7 @@ export const signin = {
 		const url = AUTH_API + '/auth/auto/verify';
 		const response = await api(url, {
 			method: 'GET',
-			credentials: 'include',
+			credentials: 'same-origin',
 			headers: {
 				'Access-Control-Allow-Credentials': 'true',
 			},
