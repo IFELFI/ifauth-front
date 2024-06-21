@@ -21,8 +21,6 @@ export const signin = {
 			headers: {
 				'Content-Type': 'application/json',
 			}
-		}).catch((error) => {
-			console.log(error);
 		});
 		// const response = await api(url, {
 		// 	method: 'GET',
