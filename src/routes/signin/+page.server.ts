@@ -8,8 +8,11 @@ import { code } from '$stores/auth.js';
 
 export const load: SigninPageServerLoad = async ({ cookies, url }) => {
 	const redirectUrl = url.searchParams.get('redirectUrl');
+	console.log('autoLogin ' + cookies.get('autoLogin'));
+	
 	if (cookies.get('autoLogin')) {
 		const response = await signin.auto();
+		console.log(response);
 		if (response.status === 200) {
 			const body = await response.json();
 			if (!body.code) {

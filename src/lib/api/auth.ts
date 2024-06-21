@@ -15,6 +15,7 @@ export const signin = {
 		const response = await api(url, {
 			method: 'GET'
 		});
+		
 		return response;
 	}
 };
