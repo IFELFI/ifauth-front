@@ -6,7 +6,7 @@ export const signin = {
 		const url = AUTH_API + '/auth/local/login';
 		const response = await api(url, {
 			method: 'POST',
-			body: JSON.stringify({ email, password, autoLogin: auto })
+			body: JSON.stringify({ email, password, auto })
 		});
 		return response;
 	},

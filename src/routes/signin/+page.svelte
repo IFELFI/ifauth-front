@@ -22,7 +22,7 @@
     <input type="password" placeholder="password" name="password" required />
     <div class="bottomContainer">
       <div class="checkBoxContainer">
-        <input type="checkbox" name="autoLogin">
+        <input type="checkbox" name="auto">
         <p >
           do you want to stay signed in?
         </p>

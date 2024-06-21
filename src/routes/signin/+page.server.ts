@@ -30,7 +30,7 @@ export const actions = {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
-		const autoLogin = data.get('autoLogin')?.toString();
+		const auto = data.get('auto')?.toString();
 		const redirectUrl = data.get('redirectUrl')?.toString();
 
 		if (!email || !password) {
@@ -39,9 +39,10 @@ export const actions = {
 			});
 		}
 
-		const response = await signin.local(email, password, autoLogin === 'on');
+		const response = await signin.local(email, password, auto === 'on');
 		if (response.status === 200) {
 			const body = await response.json();
+			console.log(body);
 			if (!body.code) {
 				return fail(401, {
 					error: 'Invalid response'
@@ -57,7 +58,7 @@ export const actions = {
 			if (redirectUrl) {
 				redirect(302, `${redirectUrl}?code=${body.code}`);
 			} else {
-				redirect(302, HOME_URL);
+				// redirect(302, HOME_URL);
 			}
 		}
 
