@@ -13,7 +13,11 @@ export const signin = {
 	auto: async () => {
 		const url = AUTH_API + '/auth/auto/verify';
 		const response = await api(url, {
-			method: 'GET'
+			method: 'GET',
+			credentials: 'include',
+			headers: {
+				'Access-Control-Allow-Credentials': 'true'
+			}
 		});
 		
 		return response;
