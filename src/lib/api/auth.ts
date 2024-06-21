@@ -25,7 +25,10 @@ export const issueAuto = {
 		const url = AUTH_API + `/auth/auto/issue?code=${code}`;
 		const response = await api(url, {
 			method: 'GET',
-			credentials: 'include'
+			credentials: 'include',
+			headers: {
+				'Access-Control-Allow-Credentials': 'true'
+			}
 		});
 		return response;
 	}

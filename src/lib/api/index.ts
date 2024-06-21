@@ -9,7 +9,7 @@ export const api = async (url: string, options: RequestInit) => {
 		headers: {
 			...options.headers,
 			Authorization: `Bearer ${accessToken}`,
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
 		}
 	});
 	return response;
