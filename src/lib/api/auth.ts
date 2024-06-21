@@ -1,6 +1,7 @@
 import { AUTH_API } from '$env/static/private';
 import type { Cookies } from '@sveltejs/kit';
 import { api } from '.';
+import axios from 'axios';
 
 export const signin = {
 	local: async (email: string, password: string, auto: boolean = false) => {
@@ -13,15 +14,22 @@ export const signin = {
 	},
 	auto: async (cookies: Cookies) => {
 		const url = AUTH_API + '/auth/auto/verify';
-		const response = await api(url, {
+		const response = await axios.request({
+			url,
 			method: 'GET',
-			credentials: 'include',
+			withCredentials: true,
 			headers: {
-				'Access-Control-Allow-Credentials': 'true',
-				'set-cookie': cookies.get('autoLogin') || 'sdfdsf'
-			},
-			mode: 'cors'
+				'Content-Type': 'application/json',
+			}
 		});
+		// const response = await api(url, {
+		// 	method: 'GET',
+		// 	credentials: 'include',
+		// 	headers: {
+		// 		'Access-Control-Allow-Credentials': 'true',
+		// 	},
+		// 	mode: 'cors'
+		// });
 		
 		return response;
 	}
