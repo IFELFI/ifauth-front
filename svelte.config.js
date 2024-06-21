@@ -18,6 +18,14 @@ const config = {
 		csrf: {
 			checkOrigin: true 
 		},
+		alias: {
+			$components: './src/components',
+			$lib: './src/lib',
+			$stores: './src/stores',
+			$utils: './src/utils',
+			$styles: './src/styles',
+			$types: './src/types'
+		},
 	}
 };
 

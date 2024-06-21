@@ -30,6 +30,7 @@ form > input {
   display: flex;
   flex-direction: row;
   width: 100%;
+  justify-content: end;
 }
 
 .checkBoxContainer {

@@ -1,6 +1,6 @@
-import { access } from "$lib/store";
+import { access } from '$stores/auth';
 
-export const apiFetch = async (url: string, options: RequestInit) => {
+export const api = async (url: string, options: RequestInit) => {
 	let accessToken: string | null = null;
 	access.subscribe((value) => (accessToken = value));
 	const response = await fetch(url, {

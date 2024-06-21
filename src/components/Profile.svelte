@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { profile } from "$lib/api/interfaces/data.interface";
+	import type { profile } from "$types/data";
 	import Loading from "./Loading.svelte";
   import defaultImage from "$lib/assets/default.svg";
 	import { getContext } from "svelte";

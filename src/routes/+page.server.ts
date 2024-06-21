@@ -2,10 +2,10 @@ import { token } from '$lib/api/token.js';
 import { user } from '$lib/api/user.js';
 import { redirect } from '@sveltejs/kit';
 import type { MainPageServerLoad } from './$types';
-import type { replyProfile } from '$lib/api/interfaces/reply.interface';
-import { code } from '$lib/store';
 import { HOME_URL } from '$env/static/private';
 import path from 'path';
+import { code } from '$stores/auth';
+import type { replyProfile } from '$types/reply';
 
 export const load: MainPageServerLoad = async ({ cookies }) => {
 	const signinUrl = path.join(HOME_URL, 'signin');

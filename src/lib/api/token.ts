@@ -1,9 +1,9 @@
 import { AUTH_API } from '$env/static/private';
-import { access, code, setAccess } from '$lib/store';
 import type { Cookies } from '@sveltejs/kit';
-import { apiFetch } from './util/fetch';
-import { setRefresh } from '$lib/cookie';
-import type { replyData } from './interfaces/reply.interface';
+import { api } from '.';
+import { setCookie } from '$lib/cookie';
+import { code, setAccess, access } from '$stores/auth';
+import type { replyData } from '$types/reply';
 
 export const token = {
 	issue: async (cookies: Cookies): Promise<{ result: boolean; response: Response | null }> => {
@@ -14,16 +14,16 @@ export const token = {
 			return { result: false, response: null };
 		}
 		const url = AUTH_API + `/token/issue?code=${currentCode}`;
-		const response = await apiFetch(url, {
+		const response = await api(url, {
 			method: 'GET',
 			credentials: 'same-origin'
 		});
 
-    code.set(null);
+		code.set(null);
 
 		if (response.status === 200) {
 			const setAccessResult = setAccess(response);
-			const setRefreshResult = setRefresh(cookies, response);
+			const setRefreshResult = setCookie(cookies, response);
 			if (!setAccessResult || !setRefreshResult) {
 				return { result: false, response: response };
 			}
@@ -40,7 +40,7 @@ export const token = {
 			return { result: false, response: null };
 		}
 
-		const response = await apiFetch(url, {
+		const response = await api(url, {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${accessToken}`
@@ -50,7 +50,7 @@ export const token = {
 
 		if (response.status === 200) {
 			const setAccessResult = setAccess(response);
-			const setRefreshResult = setRefresh(cookies, response);
+			const setRefreshResult = setCookie(cookies, response);
 			if (!setAccessResult || !setRefreshResult) {
 				return { result: false, response: response };
 			}
@@ -62,20 +62,20 @@ export const token = {
 		response: Response,
 		cookies: Cookies
 	): Promise<{ result: boolean; refreshResponse: Response | null }> => {
-		if (response.status === 200) return { result: true, refreshResponse: null};
-    const replyData = await response.json() as replyData;
-    const message = replyData.message;
+		if (response.status === 200) return { result: true, refreshResponse: null };
+		const replyData = (await response.json()) as replyData;
+		const message = replyData.message;
 		if (response.status === 401 && message !== 'Access token needs to be refreshed') {
 			const refreshResult = await token.refresh(cookies);
-      if (!refreshResult.response) {
-        return { result: false, refreshResponse: null};
-      }
+			if (!refreshResult.response) {
+				return { result: false, refreshResponse: null };
+			}
 			if (refreshResult.result) {
-        return { result: true, refreshResponse: refreshResult.response };
+				return { result: true, refreshResponse: refreshResult.response };
 			} else {
-				return { result: false, refreshResponse: refreshResult.response};
+				return { result: false, refreshResponse: refreshResult.response };
 			}
 		}
-		return { result: false, refreshResponse: null};
+		return { result: false, refreshResponse: null };
 	}
 };

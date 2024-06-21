@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Logo from '$lib/components/Logo.svelte';
-	import Profile from '$lib/components/Profile.svelte';
+	import Logo from '$components/Logo.svelte';
+	import Profile from '$components/Profile.svelte';
 	import type { MainPageData } from './$types';
 
   export let data: MainPageData;

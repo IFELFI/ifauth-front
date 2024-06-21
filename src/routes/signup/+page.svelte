@@ -1,6 +1,6 @@
 <script>
-  import Auth from '$lib/components/Auth.svelte';
-  import Alert from '$lib/components/Alert.svelte';
+	import Alert from "$components/Alert.svelte";
+	import Auth from "$components/Auth.svelte";
 
   export let form;
 </script>
@@ -19,9 +19,11 @@
     <input type="text" placeholder="username" name="username" required />
     <input type="password" placeholder="password" name="password" required />
     <input type="password" placeholder="confirm password" name="passwordConfirm" required />
-    <div class="button-container">
-      <a href="signin">signin</a>
-      <button type="submit" class="btn">Sign up</button>  
+    <div class="bottomContainer">
+      <div class="buttonContainer">
+        <a href="signin">signin</a>
+        <button type="submit" class="btn">Sign up</button>  
+      </div>
     </div>
   </form>
 

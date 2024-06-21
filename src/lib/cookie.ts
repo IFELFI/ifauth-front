@@ -2,7 +2,7 @@ import type { Cookies } from '@sveltejs/kit';
 import type { CookieSerializeOptions } from 'cookie';
 import scp from 'set-cookie-parser';
 
-export const setRefresh = (cookies: Cookies, response: Response) => {
+export const setCookie = (cookies: Cookies, response: Response) => {
 	const setCookie = response.headers.getSetCookie();
 	if (!setCookie) return false;
 

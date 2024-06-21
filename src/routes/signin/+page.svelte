@@ -1,6 +1,6 @@
 <script>
-  import Auth from '$lib/components/Auth.svelte';
-  import Alert from '$lib/components/Alert.svelte';
+  import Auth from '$components/Auth.svelte';
+  import Alert from '$components/Alert.svelte';
   import { page } from '$app/stores';
 
   export let form;

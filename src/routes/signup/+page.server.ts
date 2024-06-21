@@ -1,7 +1,7 @@
 import { HOME_URL } from '$env/static/private';
 import { signup } from '$lib/api/auth.js';
-import { code } from '$lib/store.js';
 import { fail, redirect } from '@sveltejs/kit';
+import { code } from '$stores/auth.js';
 
 export const load = async () => {};
 

@@ -1,4 +1,4 @@
-import type { profile } from '$lib/api/interfaces/data.interface';
+import type { profile } from '$types/data';
 import type { Cookies } from '@sveltejs/kit';
 
 export interface MainPageData {
