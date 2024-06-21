@@ -1,4 +1,5 @@
 import { AUTH_API } from '$env/static/private';
+import type { Cookies } from '@sveltejs/kit';
 import { api } from '.';
 
 export const signin = {
@@ -10,14 +11,15 @@ export const signin = {
 		});
 		return response;
 	},
-	auto: async () => {
+	auto: async (cookies: Cookies) => {
 		const url = AUTH_API + '/auth/auto/verify';
 		const response = await api(url, {
 			method: 'GET',
 			credentials: 'include',
 			headers: {
 				'Access-Control-Allow-Credentials': 'true',
-				'Access-Control-Allow-Origin': 'http://ifelfi.com'
+				'Access-Control-Allow-Origin': 'http://ifelfi.com',
+				'set-cookie': cookies.get('autoLogin') || ''
 			},
 			mode: 'cors'
 		});
