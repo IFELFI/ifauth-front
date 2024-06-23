@@ -11,7 +11,6 @@
 
   onMount(async () => {
     const res = await auto.verify().catch(err => {
-      console.log(err.response);
       form = { error: err.code};
     });
   });

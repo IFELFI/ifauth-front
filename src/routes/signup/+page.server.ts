@@ -36,9 +36,7 @@ export const actions = {
 				code.set(authCode);
 				redirect(302, PUBLIC_HOME_URL);
 			}
-		}).catch((error) => {
-			console.log(error);
-			
+		}).catch(() => {
 			return fail(401, {
 				error: 'Invalid response'
 			});
