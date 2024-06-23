@@ -7,7 +7,7 @@
 </script>
 
 <div class="container">
-  <Logo size={'3rem'} text={'ifauth'} />
+  <Logo text={'ifauth'} />
   <div class="info">
     <div class="info-title">
       Manage your profile

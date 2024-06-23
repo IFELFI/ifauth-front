@@ -1,9 +1,9 @@
-import { AUTH_API } from '$env/static/private';
 import type { Cookies } from '@sveltejs/kit';
 import { api } from '.';
 import { setCookie } from '$lib/cookie';
 import { code, setAccess, access } from '$stores/auth';
 import type { replyData } from '$types/reply';
+import { PUBLIC_AUTH_API } from '$env/static/public';
 
 export const token = {
 	issue: async (cookies: Cookies): Promise<{ result: boolean; response: Response | null }> => {
@@ -13,7 +13,7 @@ export const token = {
 		if (!currentCode) {
 			return { result: false, response: null };
 		}
-		const url = AUTH_API + `/token/issue?code=${currentCode}`;
+		const url = PUBLIC_AUTH_API + `/token/issue?code=${currentCode}`;
 		const response = await api(url, {
 			method: 'GET',
 			credentials: 'include'
@@ -32,7 +32,7 @@ export const token = {
 		return { result: false, response: response };
 	},
 	refresh: async (cookies: Cookies): Promise<{ result: boolean; response: Response | null }> => {
-		const url = AUTH_API + `/token/refresh`;
+		const url = PUBLIC_AUTH_API + `/token/refresh`;
 		let accessToken: string | null = null;
 		access.subscribe((value) => (accessToken = value));
 

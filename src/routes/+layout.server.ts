@@ -1,8 +1,8 @@
-import { HOME_URL } from "$env/static/private";
+import { PUBLIC_HOME_URL } from "$env/static/public";
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async () => {
   return {
-    homeUrl: HOME_URL
+    homeUrl: PUBLIC_HOME_URL 
   }
 }

@@ -1,20 +1,22 @@
-import { HOME_URL } from '$env/static/private';
 import { issueAuto, signin } from '$lib/api/auth.js';
 import { errorHandler } from '$lib/api/errorHandler.js';
 import { setCookie } from '$lib/cookie';
 import { fail, redirect, type Cookies } from '@sveltejs/kit';
 import type { SigninPageServerLoad } from '../$types.js';
 import { code } from '$stores/auth.js';
+import { PUBLIC_HOME_URL } from '$env/static/public';
+
+export const ssr = false;
 
 export const load: SigninPageServerLoad = async ({ cookies, url }) => {
 	const redirectUrl = url.searchParams.get('redirectUrl');
 	console.log('autoLogin ' + cookies.get('autoLogin'));
 	
 	if (cookies.get('autoLogin')) {
-		const response = await signin.auto(cookies).catch((e) => {
+		const response = await signin.auto().catch((e) => {
 			console.error(e);
 		})
-		console.log(response);
+				console.log(response);
 		if (response?.status === 200) {
 			const body = await response.data;
 			if (!body.code) {
@@ -24,7 +26,7 @@ export const load: SigninPageServerLoad = async ({ cookies, url }) => {
 			if (redirectUrl) {
 				redirect(302, `${redirectUrl}?code=${body.code}`);
 			} else {
-				redirect(302, HOME_URL);
+				redirect(302, PUBLIC_HOME_URL);
 			}
 		}
 	}
@@ -62,7 +64,7 @@ export const actions = {
 			if (redirectUrl) {
 				redirect(302, `${redirectUrl}?code=${body.code}`);
 			} else {
-				redirect(302, HOME_URL);
+				redirect(302, PUBLIC_HOME_URL);
 			}
 		}
 

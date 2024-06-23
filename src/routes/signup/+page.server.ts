@@ -1,7 +1,7 @@
-import { HOME_URL } from '$env/static/private';
 import { signup } from '$lib/api/auth.js';
 import { fail, redirect } from '@sveltejs/kit';
 import { code } from '$stores/auth.js';
+import { PUBLIC_HOME_URL } from '$env/static/public';
 
 export const load = async () => {};
 
@@ -41,6 +41,6 @@ export const actions = {
 		}
 		code.set(body.code);
 
-		redirect(302, HOME_URL);
+		redirect(302, PUBLIC_HOME_URL);
 	}
 };

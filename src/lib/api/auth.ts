@@ -1,26 +1,26 @@
-import { AUTH_API } from '$env/static/private';
-import type { Cookies } from '@sveltejs/kit';
+import { PUBLIC_AUTH_API } from '$env/static/public';
 import { api } from '.';
 import axios from 'axios';
 
 export const signin = {
 	local: async (email: string, password: string, auto: boolean = false) => {
-		const url = AUTH_API + '/auth/local/login';
+		const url = PUBLIC_AUTH_API + '/auth/local/login';
 		const response = await api(url, {
 			method: 'POST',
 			body: JSON.stringify({ email, password, auto })
 		});
 		return response;
 	},
-	auto: async (cookies: Cookies) => {
-		const url = AUTH_API + '/auth/auto/verify';
+	auto: async () => {
+		const url = PUBLIC_AUTH_API + '/auth/auto/verify';
 		const response = await axios.request({
 			url,
 			method: 'GET',
 			withCredentials: true,
 			headers: {
 				'Content-Type': 'application/json',
-			}
+				'Access-Control-Allow-Credentials': 'true',
+			},
 		});
 		// const response = await api(url, {
 		// 	method: 'GET',
@@ -37,7 +37,7 @@ export const signin = {
 
 export const issueAuto = {
 	issue: async (code: string) => {
-		const url = AUTH_API + `/auth/auto/issue?code=${code}`;
+		const url = PUBLIC_AUTH_API + `/auth/auto/issue?code=${code}`;
 		const response = await api(url, {
 			method: 'GET',
 			credentials: 'include',
@@ -51,7 +51,7 @@ export const issueAuto = {
 
 export const signup = {
 	local: async (email: string, name: string, password: string) => {
-		const url = AUTH_API + '/auth/local/signup';
+		const url = PUBLIC_AUTH_API + '/auth/local/signup';
 		const response = await api(url, {
 			method: 'POST',
 			body: JSON.stringify({ email, name, password })

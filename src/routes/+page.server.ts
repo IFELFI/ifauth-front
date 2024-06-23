@@ -2,13 +2,13 @@ import { token } from '$lib/api/token.js';
 import { user } from '$lib/api/user.js';
 import { redirect } from '@sveltejs/kit';
 import type { MainPageServerLoad } from './$types';
-import { HOME_URL } from '$env/static/private';
 import path from 'path';
 import { code } from '$stores/auth';
 import type { replyProfile } from '$types/reply';
+import { PUBLIC_HOME_URL } from '$env/static/public';
 
 export const load: MainPageServerLoad = async ({ cookies }) => {
-	const signinUrl = path.join(HOME_URL, 'signin');
+	const signinUrl = path.join(PUBLIC_HOME_URL, 'signin');
 
 	if (code.subscribe((value) => value) !== null) {
 		const result = await token.issue(cookies);
