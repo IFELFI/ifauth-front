@@ -1,9 +1,10 @@
 import type { Cookies } from '@sveltejs/kit';
+import type { AxiosResponse } from 'axios';
 import type { CookieSerializeOptions } from 'cookie';
 import scp from 'set-cookie-parser';
 
-export const setCookie = (cookies: Cookies, response: Response) => {
-	const setCookie = response.headers.getSetCookie();
+export const setCookie = (cookies: Cookies, response: AxiosResponse) => {
+	const setCookie = response.headers['set-cookie'];
 	if (!setCookie) return false;
 
 	const parsedSetCookie = scp.parse(setCookie);

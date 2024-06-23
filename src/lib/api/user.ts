@@ -1,21 +1,17 @@
-import { PUBLIC_AUTH_API } from '$env/static/public';
-import { api } from '.';
+import type { ReplyData, ProfileReplyData } from '$types/reply';
+import { axiosApi } from '.';
 
 export const user = {
-	logout: async () => {
-		const url = PUBLIC_AUTH_API + '/user/logout';
-		const response = await api(url, {
+	logout: () => {
+		return axiosApi.request<ReplyData<undefined>>({
+			url: '/auth/auto/logout',
 			method: 'GET'
 		});
-
-		return response;
 	},
-	profile: async () => {
-		const url = PUBLIC_AUTH_API + '/user/profile';
-		const response = await api(url, {
+	profile: () => {
+		return axiosApi.request<ProfileReplyData>({
+			url: '/user/profile',
 			method: 'GET'
 		});
-
-		return response;
 	}
 };

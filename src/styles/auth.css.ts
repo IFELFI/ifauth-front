@@ -8,7 +8,7 @@ export const authContainer = style({
 	minHeight: '300px',
 	padding: '3rem 4rem',
 	borderRadius: '20px',
-	backgroundColor: 'white',
+	backgroundColor: 'white'
 });
 
 export const logoContainer = style({
@@ -19,34 +19,33 @@ export const logoContainer = style({
 	}
 });
 
-export const logo = style({
-  fontSize: '2rem',
-  fontWeight: 'bold',
+export const authLogo = style({
+	fontSize: '2rem',
 });
 
 export const infoContainer = style({
-  display: 'flex',
-  flexDirection: 'column',
+	display: 'flex',
+	flexDirection: 'column'
 });
 
 export const pathContainer = style({
-  display: 'flex',
-  fontSize: '2.5rem',
+	display: 'flex',
+	fontSize: '2.5rem'
 });
 
 export const guideContainer = style({
-  display: 'flex',
-  fontSize: '1rem',
+	display: 'flex',
+	fontSize: '1rem'
 });
 
 export const alertContainer = style({
-  position: 'absolute',
-  bottom: '0',
-  right: '0',
+	position: 'absolute',
+	bottom: '0',
+	right: '0'
 });
 
-export const formContainer = style({ 
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
+export const formContainer = style({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center'
 });

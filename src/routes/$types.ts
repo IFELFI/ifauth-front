@@ -1,11 +1,6 @@
-import type { profile } from '$types/data';
 import type { Cookies } from '@sveltejs/kit';
 
-export interface MainPageData {
-	profile: profile;
-}
-
-export type MainPageServerLoad = ({ cookies }: { cookies: Cookies }) => Promise<MainPageData>;
+export type MainPageServerLoad = ({ cookies }: { cookies: Cookies }) => Promise<void>;
 
 export interface LayoutData {
 	homeUrl: string;

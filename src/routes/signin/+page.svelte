@@ -3,15 +3,17 @@
   import Alert from '$components/Alert.svelte';
   import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { signin } from '../../lib/api/auth';
+  import { auto } from './../../lib/api/auth';
 
   export let form;
 
   $: redirectUrl = $page.url.searchParams.get('redirect_url');
 
   onMount(async () => {
-    const res2 = await signin.auto();
-		console.log(res2);
+    const res = await auto.verify().catch(err => {
+      console.log(err.response);
+      form = { error: err.code};
+    });
   });
 </script>
 

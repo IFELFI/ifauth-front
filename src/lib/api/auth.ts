@@ -1,61 +1,34 @@
-import { PUBLIC_AUTH_API } from '$env/static/public';
-import { api } from '.';
-import axios from 'axios';
+import type { ReplyData, AuthReplyData } from '$types/reply';
+import { axiosApi } from '.';
 
-export const signin = {
-	local: async (email: string, password: string, auto: boolean = false) => {
-		const url = PUBLIC_AUTH_API + '/auth/local/login';
-		const response = await api(url, {
+export const local = {
+	signin: async (email: string, password: string, auto: boolean = false) => {
+		return await axiosApi.request<AuthReplyData>({
+			url: '/auth/local/login',
 			method: 'POST',
-			body: JSON.stringify({ email, password, auto })
+			data: { email, password, auto }
 		});
-		return response;
 	},
-	auto: async () => {
-		const url = PUBLIC_AUTH_API + '/auth/auto/verify';
-		const response = await axios.request({
-			url,
-			method: 'GET',
-			withCredentials: true,
-			headers: {
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Credentials': 'true',
-			},
-		});
-		// const response = await api(url, {
-		// 	method: 'GET',
-		// 	credentials: 'include',
-		// 	headers: {
-		// 		'Access-Control-Allow-Credentials': 'true',
-		// 	},
-		// 	mode: 'cors'
-		// });
-		
-		return response;
-	}
-};
-
-export const issueAuto = {
-	issue: async (code: string) => {
-		const url = PUBLIC_AUTH_API + `/auth/auto/issue?code=${code}`;
-		const response = await api(url, {
-			method: 'GET',
-			credentials: 'include',
-			headers: {
-				'Access-Control-Allow-Credentials': 'true'
-			}
-		});
-		return response;
-	}
-};
-
-export const signup = {
-	local: async (email: string, name: string, password: string) => {
-		const url = PUBLIC_AUTH_API + '/auth/local/signup';
-		const response = await api(url, {
+	signup: async (email: string, name: string, password: string) => {
+		return await axiosApi.request<AuthReplyData>({
+			url: '/auth/local/signup',
 			method: 'POST',
-			body: JSON.stringify({ email, name, password })
+			data: { email, name, password }
 		});
-		return response;
+	}
+};
+
+export const auto = {
+	verify: async () => {
+		return await axiosApi.request<AuthReplyData>({
+			url: '/auth/auto/verify',
+			method: 'GET'
+		});
+	},
+	issue: async (code: string) => {
+		return await axiosApi.request<ReplyData<undefined>>({
+			url: `/auth/auto/issue?code=${code}`,
+			method: 'GET'
+		});
 	}
 };

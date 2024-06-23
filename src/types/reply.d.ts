@@ -1,8 +1,13 @@
-import type { profile } from './data';
+import type { Profile } from './data';
 
-export interface replyData<T = undefined> {
+export interface ReplyData<T = undefined> {
 	message: string;
 	data: T;
 }
 
-export interface replyProfile extends replyData<profile> {}
+export interface ProfileReplyData extends ReplyData<Profile> {}
+
+export interface AuthReplyData extends ReplyData {
+	code: string;
+	autoAuthCode: string;
+}

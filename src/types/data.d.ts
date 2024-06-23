@@ -1,10 +1,10 @@
-export interface profile {
+export interface Profile {
 	email: string;
 	nickname: string;
 	imageUrl: string | null;
 	joinDate: string;
 	updateDate: string;
-	provider: provider_type;
+	provider: ProviderType;
 }
 
-export type provider_type = 'local' | 'google'
+export type ProviderType = 'local' | 'google';
