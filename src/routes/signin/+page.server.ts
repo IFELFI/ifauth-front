@@ -1,11 +1,11 @@
-import { setCookie } from '$lib/cookie';
-import { fail, redirect, type Cookies } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { code } from '$stores/auth.js';
-import { PUBLIC_HOME_URL } from '$env/static/public';
 import { local } from '$lib/api/auth.js';
+import { errorHandler } from '$lib/api/errorHandler.js';
+import { PUBLIC_HOME_URL } from '$env/static/public';
 
 export const actions = {
-	local: async ({ request, cookies }: { request: Request, cookies: Cookies }) => {
+	local: async ({ request }: { request: Request }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
@@ -18,30 +18,24 @@ export const actions = {
 			});
 		}
 
-		await local.signin(email, password, auto === 'on').then((response) => {
+		let redirectPath = PUBLIC_HOME_URL;
+
+		const error = await local.signin(email, password, auto === 'on').then((response) => {
 			if (response.status === 200) {
 				const authCode = response.data.code;
-				if (!authCode) {
-					return fail(401, {
-						error: 'Invalid response'
-					});
-				}
-				setCookie(cookies, response);
 				code.set(authCode);
-				
 				if (redirectUrl) {
-					return redirect(302, `${redirectUrl}?code=${authCode}`);
-				} else {
-					return redirect(302, PUBLIC_HOME_URL);
+					redirectPath = `${redirectUrl}?code=${authCode}`;
 				}
 			}
-			return fail(401, {
-				error: 'Invalid response'
-			});
-		}).catch(() => {
-			return fail(401, {
-				error: 'Invalid response'
-			});
+		}).catch((error) => {
+			return errorHandler(error);
 		});
+
+		if (error) {
+			return error;
+		}
+
+		redirect(302, redirectPath);
 	}
 };

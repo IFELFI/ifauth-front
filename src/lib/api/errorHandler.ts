@@ -1,20 +1,14 @@
+import type { ReplyData } from "$types/reply"
 import { fail } from "@sveltejs/kit"
+import axios from "axios"
 
-export const errorHandler = async (response: Response) => {
-  if (response.status === 502) {
-    return fail(502, {
-      error: 'Server is down'
+export const errorHandler = async (error: unknown) => {
+  if (axios.isAxiosError<ReplyData<undefined>>(error)) {
+    return fail(error.status || 400, {
+      error: error.response?.data?.message || "Invalid response"
     })
   }
-
-  try {
-    const { message } = await response.json();
-    return fail(response.status, {
-      error: message
-    })
-  } catch (error) {
-    return fail(response.status, {
-      error: 'Unknown error'
-    })
-  }
+  return fail (400, {
+    error: "Invalid response"
+  })
 }

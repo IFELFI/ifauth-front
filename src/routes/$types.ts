@@ -1,6 +1,15 @@
-import type { Cookies } from '@sveltejs/kit';
+import type { Profile } from '$types/data';
+import type { ActionFailure, Cookies } from '@sveltejs/kit';
 
-export type MainPageServerLoad = ({ cookies }: { cookies: Cookies }) => Promise<void>;
+export interface MainPageData {
+	profile: Profile | null;
+}
+
+export type MainPageServerLoad = ({
+	cookies
+}: {
+	cookies: Cookies;
+}) => Promise<MainPageData | ActionFailure<{ error: string }>>;
 
 export interface LayoutData {
 	homeUrl: string;

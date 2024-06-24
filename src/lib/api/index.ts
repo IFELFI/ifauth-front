@@ -36,7 +36,7 @@ axiosApi.interceptors.response.use(
 		access.subscribe((value) => (accessToken = value));
 		requestCount.subscribe((value) => (count = value));
 
-		if (axios.isAxiosError(error)) {
+		if (axios.isAxiosError(error) && error.response?.status === 401) {
 			if (count < 1) {
 				await axios
 					.get(`${PUBLIC_AUTH_API}/token/refresh`, {
