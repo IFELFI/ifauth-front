@@ -1,11 +1,10 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { code } from '$stores/auth.js';
-import { local } from '$lib/api/auth.js';
-import { errorHandler } from '$lib/api/errorHandler.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
+import { localV2 } from '$lib/api/auth';
 
 export const actions = {
-	local: async ({ request }: { request: Request }) => {
+	local: async ({ request, fetch }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
@@ -18,24 +17,31 @@ export const actions = {
 			});
 		}
 
-		let redirectPath = PUBLIC_HOME_URL;
+		const response = await fetch(localV2.signin.url, {
+			method: localV2.signin.method,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				email,
+				password,
+				auto
+			})
+		}).then((response) => response);
 
-		const error = await local.signin(email, password, auto === 'on').then((response) => {
-			if (response.status === 200) {
-				const authCode = response.data.code;
-				code.set(authCode);
-				if (redirectUrl) {
-					redirectPath = `${redirectUrl}?code=${authCode}`;
-				}
+		if (response.status === 200) {
+			const authCode = (await response.json()).code;
+			
+			code.set(authCode);
+			if (redirectUrl) {
+				redirect(302, `${redirectUrl}?code=${authCode}`);
+			} else {
+				redirect(302, PUBLIC_HOME_URL);
 			}
-		}).catch((error) => {
-			return errorHandler(error);
-		});
-
-		if (error) {
-			return error;
 		}
 
-		redirect(302, redirectPath);
+		return fail(response.status, {
+			error: (await response.json()).message
+		});
 	}
-};
+} satisfies Actions;

@@ -12,3 +12,9 @@ export const errorHandler = async (error: unknown) => {
     error: "Invalid response"
   })
 }
+
+export const fetchErrorHandler = (response: Response) => {
+  return fail(response.status, {
+    error: response.statusText
+  })
+}

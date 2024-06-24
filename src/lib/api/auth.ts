@@ -1,3 +1,4 @@
+import { PUBLIC_AUTH_API } from '$env/static/public';
 import type { ReplyData, AuthReplyData } from '$types/reply';
 import { axiosApi } from '.';
 
@@ -32,3 +33,10 @@ export const auto = {
 		});
 	}
 };
+
+export const localV2 = {
+	signin: {
+		url: `${PUBLIC_AUTH_API}/auth/local/login`,
+		method: 'POST',
+	}
+}
