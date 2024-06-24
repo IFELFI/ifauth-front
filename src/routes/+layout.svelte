@@ -4,7 +4,7 @@
   import type { LayoutData } from './$types';
   import { setContext } from 'svelte';
 
-  export let data: LayoutData;
+  export let data;
 
   const language = writable<string>('ko');
 	

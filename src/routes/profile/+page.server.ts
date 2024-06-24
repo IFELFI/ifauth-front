@@ -1,13 +1,13 @@
-import { token } from '$lib/api/token.js';
-import { redirect } from '@sveltejs/kit';
-import type { MainPageServerLoad } from './$types';
-import path from 'path';
-import { access, code } from '$stores/auth';
-import { PUBLIC_HOME_URL } from '$env/static/public';
-import { setCookie } from '$lib/cookie';
-import { user } from '$lib/api/user';
-import { errorHandler } from '$lib/api/errorHandler';
-import type { Profile } from '$types/data';
+import { PUBLIC_HOME_URL } from "$env/static/public";
+import { errorHandler } from "$lib/api/errorHandler";
+import { token } from "$lib/api/token";
+import { user } from "$lib/api/user";
+import { setCookie } from "$lib/cookie";
+import { code, access } from "$stores/auth";
+import type { Profile } from "$types/data";
+import { redirect } from "@sveltejs/kit";
+import type { MainPageServerLoad } from "../$types"; 
+import path from "path";
 
 export const load: MainPageServerLoad = async ({ cookies }) => {
 	let currentCode: string | null = null;
@@ -23,7 +23,6 @@ export const load: MainPageServerLoad = async ({ cookies }) => {
 				const accessToken = response.headers['authorization'].split(' ')[1];
 				access.set(accessToken);
 				setCookie(cookies, response);
-				code.set(null);
 			})
 			.catch(() => {
 				throw redirect(307, signinUrl);

@@ -8,7 +8,7 @@ export const axiosApi = axios.create({
 	withCredentials: true,
 	headers: {
 		'Content-Type': 'application/json'
-	}
+	},
 });
 
 axiosApi.interceptors.request.use(

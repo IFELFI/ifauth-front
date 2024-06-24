@@ -1,4 +1,5 @@
 <script>
+	import { enhance } from '$app/forms';
 	import Alert from "$components/Alert.svelte";
 	import Auth from "$components/Auth.svelte";
 
@@ -14,7 +15,7 @@
     <p>Sign up with your email</p>
   </div>
 
-  <form slot="form" method="POST" action="?/local">
+  <form slot="form" method="POST" action="?/local" use:enhance>
     <input type="text" placeholder="email" name="email" required />
     <input type="text" placeholder="username" name="username" required />
     <input type="password" placeholder="password" name="password" required />

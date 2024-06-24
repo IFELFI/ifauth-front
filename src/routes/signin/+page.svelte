@@ -7,6 +7,7 @@
   import { auto } from './../../lib/api/auth';
 	import { code } from '$stores/auth';
   import { PUBLIC_HOME_URL } from '$env/static/public';
+	import { enhance } from '$app/forms';
 
   export let form;
 
@@ -37,7 +38,7 @@
     <p>Sign in with your email</p>
   </div>
 
-  <form slot="form" method="POST" action="?/local">
+  <form slot="form" method="POST" action="?/local" use:enhance>
     <input type="text" placeholder="email" name="email" required />
     <input type="password" placeholder="password" name="password" required />
     <div class="bottomContainer">

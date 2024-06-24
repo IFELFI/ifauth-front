@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Logo from '$components/Logo.svelte';
+	import Logo from '$components/Logo.svelte';
 	import { btn, buttonContainer, infoContainer, infoText, infoTitle, mainContainer, mainLogo } from '$styles/main.css';
-  import type { Profile } from '$types/data';
-
-  export let data: { profile: Profile };
+	import type { MainPageData } from './$types';
+  
+  export let data: MainPageData;
 </script>
 
 <div class={mainContainer}>
@@ -18,10 +18,10 @@
       It provides a secure and reliable way to authenticate users
     </div>
   </div>
-  {#if data.profile}
+  {#if data?.profile}
     <div class={buttonContainer}>
       <a href="profile" class={btn}>Profile</a>
-      <a href="signout" class={btn}>Sign out</a>
+      <a href="logout" class={btn}>Logout</a>
     </div>
   {:else}
     <div class={buttonContainer}>

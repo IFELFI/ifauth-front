@@ -1,5 +1,5 @@
 import type { Profile } from '$types/data';
-import type { ActionFailure, Cookies } from '@sveltejs/kit';
+import type { Cookies } from '@sveltejs/kit';
 
 export interface MainPageData {
 	profile: Profile | null;
@@ -9,7 +9,7 @@ export type MainPageServerLoad = ({
 	cookies
 }: {
 	cookies: Cookies;
-}) => Promise<MainPageData | ActionFailure<{ error: string }>>;
+}) => Promise<MainPageData>;
 
 export interface LayoutData {
 	homeUrl: string;
@@ -24,3 +24,5 @@ export type SigninPageServerLoad = ({
 	cookies: Cookies;
 	url: URL;
 }) => Promise<void>;
+
+export type LogoutPageServerLoad = ({ cookies }: { cookies: Cookies }) => Promise<void>;
