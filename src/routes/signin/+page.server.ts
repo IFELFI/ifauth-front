@@ -4,7 +4,7 @@ import { PUBLIC_HOME_URL } from '$env/static/public';
 import { localV2 } from '$lib/api/auth';
 
 export const actions = {
-	local: async ({ request, fetch }) => {
+	local: async ({ request, fetch, getClientAddress }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
@@ -20,7 +20,8 @@ export const actions = {
 		const response = await fetch(localV2.signin.url, {
 			method: localV2.signin.method,
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'x-forwarded-for': getClientAddress()
 			},
 			body: JSON.stringify({
 				email,
