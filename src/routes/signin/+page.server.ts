@@ -10,6 +10,7 @@ export const actions = {
 		const password = data.get('password')?.toString();
 		const auto = data.get('auto')?.toString();
 		const redirectUrl = data.get('redirectUrl')?.toString();
+		console.log(getClientAddress());
 
 		if (!email || !password) {
 			return fail(400, {
@@ -21,7 +22,6 @@ export const actions = {
 			method: localV2.signin.method,
 			headers: {
 				'Content-Type': 'application/json',
-				'x-forwarded-for': getClientAddress()
 			},
 			body: JSON.stringify({
 				email,
