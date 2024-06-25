@@ -21,21 +21,22 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 		code.set(null);
 	}
 
-	const api = token.isValid;
-	const response = await fetch(api.url, {
-		method: api.method,
-		headers: {
-			Authorization: `Bearer ${currentAccess}`
+	if (currentAccess) {
+		const api = token.isValid;
+		const response = await fetch(api.url, {
+			method: api.method,
+			headers: {
+				Authorization: `Bearer ${currentAccess}`
+			}
+		});
+    
+		if (response.status === 200) {
+			return {
+				valid: true
+			};
 		}
-	});
-	if (response.status === 200) {
-		return {
-			valid: true
-		};
-	} else {
-		access.set(null);
-		return {
-			valid: false
-		};
 	}
-};
+	return {
+		valid: false
+	};
+}
