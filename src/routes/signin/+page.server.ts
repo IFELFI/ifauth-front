@@ -2,14 +2,37 @@ import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { code } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { localV2 } from '$lib/api/auth';
+import { auto } from '$lib/api/urls';
+
+export const load = async ({ fetch, cookies, url }) => {
+	const api = auto.verify;
+	const redirectUrl = url.searchParams.get('redirect_url');
+	if (cookies.get('AUTO')) {
+		const response = await fetch(api.url, {
+			method: api.method,
+		});
+
+		if (response.status === 200) {
+			const body = await response.json();
+			const authCode = body.code as string || null;
+			if (authCode && redirectUrl) {
+				code.set(authCode);
+				redirect(302, `${redirectUrl}?code=${authCode}`);
+			} else if (authCode) {
+				code.set(authCode);
+				redirect(302, PUBLIC_HOME_URL);
+			}
+		}
+	}
+}
 
 export const actions = {
-	local: async ({ request, fetch }) => {
+	local: async ({ request, fetch, url }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
 		const auto = data.get('auto')?.toString() === 'on';
-		const redirectUrl = data.get('redirectUrl')?.toString();
+		const redirectUrl = url.searchParams.get('redirect_url');
 		
 		if (!email || !password) {
 			return fail(400, {
