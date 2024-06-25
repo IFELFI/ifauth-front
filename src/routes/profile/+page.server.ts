@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 			}
 		});
 		if (response.status === 200) {
-			const profile = (await response.json()) as Profile;
+			const profile = (await response.json()).data as Profile;
 			return {
 				profile
 			};

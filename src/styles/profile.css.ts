@@ -1,5 +1,32 @@
 import { style } from "@vanilla-extract/css";
 
+export const profilePageContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'white',
+  width: '90vw',
+  minHeight: '70vh',
+  padding: '2rem',
+});
+
+export const profilePageLogo = style({
+  display: 'flex',
+  fontSize: '4rem',
+  fontWeight: 'bold',
+  justifyContent: 'center',
+  marginTop: '2rem',
+  marginBottom: '2rem',
+});
+
+export const profilePageColumnContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
 export const profileContainer = style({
   display: 'flex',
   flexDirection: 'column',
@@ -20,6 +47,7 @@ export const cardContainer = style({
   height: '100%',
   padding: '4rem',
   marginBottom: '2rem',
+  backgroundColor: 'white',
 })
 
 export const imageContainer = style({

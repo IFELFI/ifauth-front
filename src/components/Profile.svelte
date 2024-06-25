@@ -74,6 +74,7 @@
 		height: 100%;
 		padding: 4rem;
 		margin-bottom: 2rem;
+		background-color: white;
 	}
 
 	.imageContainer {
