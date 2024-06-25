@@ -1,9 +1,12 @@
 <script>
+	import { enhance } from '$app/forms';
 	import Auth from '$components/Auth.svelte';
   import Alert from '$components/Alert.svelte';
-  import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
 
   export let form;
+
+   $: redirect= $page.url.searchParams.get('redirect');
 </script>
 
 <Auth>
@@ -15,7 +18,13 @@
     <p>Sign in with your email</p>
   </div>
 
-  <form slot="form" method="POST" action="?/local" use:enhance>
+  <form slot="form" method="POST" action="?/local" 
+    use:enhance={() => {
+      return async ({ update }) => {
+        update({ reset: false });
+      };
+  }}>
+    <input type="hidden" name="redirect" value={redirect} />
     <input type="text" placeholder="email" name="email" required />
     <input type="password" placeholder="password" name="password" required />
     <div class="bottomContainer">

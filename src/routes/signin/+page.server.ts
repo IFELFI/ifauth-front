@@ -6,7 +6,7 @@ import { invalidate } from '$app/navigation';
 
 export const load = async ({ fetch, cookies, url }) => {
 	const api = auto.verify;
-	const redirectUrl = url.searchParams.get('redirect_url');
+	const redirectUrl = url.searchParams.get('redirect');
 	if (cookies.get('AUTO')) {
 		const response = await fetch(api.url, {
 			method: api.method,
@@ -17,10 +17,10 @@ export const load = async ({ fetch, cookies, url }) => {
 			const authCode = body.code as string || null;
 			if (authCode && redirectUrl) {
 				code.set(authCode);
-				invalidate((url) => url.pathname === '/');
 				redirect(302, `${redirectUrl}?code=${authCode}`);
 			} else if (authCode) {
 				code.set(authCode);
+				invalidate((url) => url.pathname === PUBLIC_HOME_URL);
 				redirect(302, PUBLIC_HOME_URL);
 			}
 		}
@@ -28,12 +28,12 @@ export const load = async ({ fetch, cookies, url }) => {
 }
 
 export const actions = {
-	local: async ({ request, fetch, url }) => {
+	local: async ({ request, fetch }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
 		const autoOn = data.get('auto')?.toString() === 'on';
-		const redirectUrl = url.searchParams.get('redirect_url');
+		const redirectUrl = data.get('redirect')?.toString();
 		
 		if (!email || !password) {
 			return fail(400, {
