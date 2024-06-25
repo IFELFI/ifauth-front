@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { PUBLIC_HOME_URL } from "$env/static/public";
 	import { logo } from "$styles/logo.css";
-	import { getContext } from "svelte";
 
   export let text: string = 'IFELFI';
   export let className: string = '';
 
-  const homeUrl = getContext<string>('home') ?? '/';
+  const homeUrl = PUBLIC_HOME_URL;
 </script>
 
 <div class={className}>
