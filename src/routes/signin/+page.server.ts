@@ -2,6 +2,7 @@ import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { code } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { auth, auto } from '$lib/api/urls';
+import { invalidate } from '$app/navigation';
 
 export const load = async ({ fetch, cookies, url }) => {
 	const api = auto.verify;
@@ -16,6 +17,7 @@ export const load = async ({ fetch, cookies, url }) => {
 			const authCode = body.code as string || null;
 			if (authCode && redirectUrl) {
 				code.set(authCode);
+				invalidate((url) => url.pathname === '/');
 				redirect(302, `${redirectUrl}?code=${authCode}`);
 			} else if (authCode) {
 				code.set(authCode);

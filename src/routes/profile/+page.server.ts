@@ -10,7 +10,10 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	if (currentAccess) {
 		const api = user.profile;
 		const response = await fetch(api.url, {
-			method: api.method
+			method: api.method,
+			headers: {
+				Authorization: `Bearer ${currentAccess}`
+			}
 		});
 		if (response.status === 200) {
 			const profile = (await response.json()) as Profile;

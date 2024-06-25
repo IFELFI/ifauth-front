@@ -47,5 +47,9 @@ export const user = {
 	profile: {
 		url: `${PUBLIC_AUTH_API}/user/profile`,
 		method: 'GET'
-	}
+	},
+  logout: { 
+    url: `${PUBLIC_AUTH_API}/user/logout`,
+    method: 'GET'
+  }
 };
