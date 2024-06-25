@@ -52,8 +52,8 @@ export const actions = {
 			})
 		});
 
+		const body = await response.json();
 		if (response.status === 200) {
-			const body = await response.json();
 			const autoAuthCode = body.autoAuthCode as string || null;
 			const authCode = body.code as string || null;
 
@@ -73,7 +73,7 @@ export const actions = {
 		}
 
 		return fail(response.status, {
-			error: (await response.json()).message
+			error: body.message
 		});
 	}
 } satisfies Actions;

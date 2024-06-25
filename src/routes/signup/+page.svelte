@@ -33,5 +33,4 @@
       <Alert type="error" message={form.error} />
     {/if}
   </div>
-
 </Auth>
