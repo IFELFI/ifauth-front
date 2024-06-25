@@ -10,7 +10,7 @@ export const actions = {
 		const password = data.get('password')?.toString();
 		const auto = data.get('auto')?.toString() === 'on';
 		const redirectUrl = data.get('redirectUrl')?.toString();
-
+		
 		if (!email || !password) {
 			return fail(400, {
 				error: 'Email and password are required'
@@ -30,8 +30,9 @@ export const actions = {
 		});
 
 		if (response.status === 200) {
-			const autoAuthCode = (await response.json()).autoAuthCode as string || null;
-			const authCode = (await response.json()).code as string || null;
+			const body = await response.json();
+			const autoAuthCode = body.autoAuthCode as string || null;
+			const authCode = body.code as string || null;
 
 			if (autoAuthCode) {
 				const api = localV2.issueAuto(autoAuthCode);
