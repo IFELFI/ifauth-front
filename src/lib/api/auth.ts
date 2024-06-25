@@ -38,5 +38,11 @@ export const localV2 = {
 	signin: {
 		url: `${PUBLIC_AUTH_API}/auth/local/login`,
 		method: 'POST',
+	},
+	issueAuto: (code: string) => {
+		return {
+			url: `${PUBLIC_AUTH_API}/auth/auto/issue?code=${code}`,
+			method: 'GET',
+		}
 	}
 }

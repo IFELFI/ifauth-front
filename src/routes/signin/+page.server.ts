@@ -27,10 +27,18 @@ export const actions = {
 				password,
 				auto
 			})
-		}).then((response) => response);
+		});
 
 		if (response.status === 200) {
-			const authCode = (await response.json()).code;
+			const autoAuthCode = (await response.json()).autoAuthCode as string || null;
+			const authCode = (await response.json()).code as string || null;
+
+			if (autoAuthCode) {
+				const api = localV2.issueAuto(autoAuthCode);
+				await fetch(api.url, {
+					method: api.method,
+				});
+			}
 			
 			code.set(authCode);
 			if (redirectUrl) {
