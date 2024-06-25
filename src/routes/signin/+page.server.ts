@@ -1,8 +1,7 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { code } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
-import { localV2 } from '$lib/api/auth';
-import { auto } from '$lib/api/urls';
+import { auth, auto } from '$lib/api/urls';
 
 export const load = async ({ fetch, cookies, url }) => {
 	const api = auto.verify;
@@ -31,7 +30,7 @@ export const actions = {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
-		const auto = data.get('auto')?.toString() === 'on';
+		const autoOn = data.get('auto')?.toString() === 'on';
 		const redirectUrl = url.searchParams.get('redirect_url');
 		
 		if (!email || !password) {
@@ -40,15 +39,16 @@ export const actions = {
 			});
 		}
 
-		const response = await fetch(localV2.signin.url, {
-			method: localV2.signin.method,
+		const api = auth.local.signin;
+		const response = await fetch(api.url, {
+			method: api.method,
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
 				email,
 				password,
-				auto
+				auto: autoOn
 			})
 		});
 
@@ -58,7 +58,7 @@ export const actions = {
 			const authCode = body.code as string || null;
 
 			if (autoAuthCode) {
-				const api = localV2.issueAuto(autoAuthCode);
+				const api = auto.issue(autoAuthCode);
 				await fetch(api.url, {
 					method: api.method,
 				});

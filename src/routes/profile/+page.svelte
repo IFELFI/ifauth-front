@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { MainPageData } from "../$types";
-
-  export let data: MainPageData;
+  export let data;
 </script>
 
 <div>

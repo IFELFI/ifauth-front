@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { code } from '$stores/auth.js';
 import { local } from '$lib/api/auth';
-import { errorHandler } from '$lib/api/errorHandler.js';
+import { apiErrorHandler } from '$lib/api/errorHandler.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 
 export const load = async () => {};
@@ -26,19 +26,22 @@ export const actions = {
 			});
 		}
 
-		const error = await local.signup(email, username, password).then((response) => {
-			if (response.status === 200) {
-				const authCode = response.data.code;
-				code.set(authCode);
-			}
-		}).catch((error) => {
-			return errorHandler(error);
-		});
+		const error = await local
+			.signup(email, username, password)
+			.then((response) => {
+				if (response.status === 200) {
+					const authCode = response.data.code;
+					code.set(authCode);
+				}
+			})
+			.catch((error) => {
+				return apiErrorHandler(error);
+			});
 
 		if (error) {
 			return error;
 		}
 
-		redirect(302, PUBLIC_HOME_URL)
+		redirect(302, PUBLIC_HOME_URL);
 	}
 };
