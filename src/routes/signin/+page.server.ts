@@ -4,13 +4,12 @@ import { PUBLIC_HOME_URL } from '$env/static/public';
 import { localV2 } from '$lib/api/auth';
 
 export const actions = {
-	local: async ({ request, fetch, getClientAddress }) => {
+	local: async ({ request, fetch }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
 		const auto = data.get('auto')?.toString();
 		const redirectUrl = data.get('redirectUrl')?.toString();
-		console.log(getClientAddress());
 
 		if (!email || !password) {
 			return fail(400, {
