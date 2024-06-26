@@ -1,12 +1,12 @@
-import { HOME_URL } from '$env/static/private';
-import { signup } from '$lib/api/auth.js';
-import { code } from '$lib/store.js';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { code, isValid } from '$stores/auth.js';
+import { PUBLIC_HOME_URL } from '$env/static/public';
+import { auth } from '$lib/api/urls.js';
 
 export const load = async () => {};
 
 export const actions = {
-	local: async ({ request }: { request: Request }) => {
+	local: async ({ request, fetch }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const username = data.get('username')?.toString();
@@ -25,22 +25,30 @@ export const actions = {
 			});
 		}
 
-		const response = await signup.local(email, username, password);
-		if (response.status !== 201) {
-			const { message } = await response.json();
-			return fail(401, {
-				error: message
-			});
-		}
+		const api = auth.local.signup;
+		
+		const response = await fetch(api.url, {
+			method: api.method,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				username,
+				password
+			})
+		});
 
 		const body = await response.json();
-		if (!body.code) {
-			return fail(401, {
-				error: 'Invalid response'
-			});
+		if (response.status === 200) {
+			const authCode = body.code as string || null;
+			code.set(authCode);
+			isValid.set(true);
+			redirect(302, PUBLIC_HOME_URL);
 		}
-		code.set(body.code);
 
-		redirect(302, HOME_URL);
+		return fail(response.status, {
+			error: body.message
+		});
 	}
-};
+} satisfies Actions;

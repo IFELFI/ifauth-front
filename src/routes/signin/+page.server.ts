@@ -1,41 +1,98 @@
-import { HOME_URL } from '$env/static/private';
-import { signin } from '$lib/api/auth.js';
-import { errorHandler } from '$lib/api/errorHandler.js';
-import { code } from '$lib/store.js';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { access, code, isValid } from '$stores/auth.js';
+import { PUBLIC_HOME_URL } from '$env/static/public';
+import { auth, auto, token } from '$lib/api/urls';
+
+export const load = async ({ fetch, cookies, url }) => {
+	const redirectUrl = url.searchParams.get('redirect');
+	let accessToken: string | null = null;
+	access.subscribe((value) => {
+		accessToken = value;
+	});
+	
+	if (accessToken) {
+		const api = token.refresh;
+		const response = await fetch(api.url, {
+			method: api.method,
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+		if (response.status === 200 && !redirectUrl) {
+			redirect(302, PUBLIC_HOME_URL);
+		}
+	}
+	
+	if (cookies.get('AUTO')) {
+		const api = auto.verify;
+		const response = await fetch(api.url, {
+			method: api.method,
+		});
+		
+		if (response.status === 200) {
+			const body = await response.json();
+			const authCode = body.code as string || null;
+			code.set(authCode);
+			isValid.set(true);
+			if (authCode && redirectUrl) {
+				redirect(302, `${redirectUrl}?code=${authCode}`);
+			} else if (authCode) {
+				redirect(302, PUBLIC_HOME_URL);
+			}
+		}
+	}
+}
 
 export const actions = {
-	local: async ({ request }: { request: Request }) => {
+	local: async ({ request, fetch }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
-		const redirectUrl = data.get('redirectUrl')?.toString();
-
+		const autoOn = data.get('auto')?.toString() === 'on';
+		const redirectUrl = data.get('redirect')?.toString();
+		
 		if (!email || !password) {
 			return fail(400, {
 				error: 'Email and password are required'
 			});
 		}
 
-		const response = await signin.local(email, password);
+		const api = auth.local.signin;
+		const response = await fetch(api.url, {
+			method: api.method,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				password,
+				auto: autoOn
+			})
+		});
 
+		const body = await response.json();
 		if (response.status === 200) {
-			const body = await response.json();
+			const autoAuthCode = body.autoAuthCode as string || null;
+			const authCode = body.code as string || null;
 
-			if (!body.code) {
-				return fail(401, {
-					error: 'Invalid response'
+			if (autoAuthCode) {
+				const api = auto.issue(autoAuthCode);
+				await fetch(api.url, {
+					method: api.method,
 				});
 			}
-
-			code.set(body.code);
-
+			
+			code.set(authCode);
+			isValid.set(true);
 			if (redirectUrl) {
-				redirect(302, `${redirectUrl}?code=${body.code}`);
+				redirect(302, `${redirectUrl}?code=${authCode}`);
+			} else {
+				redirect(302, PUBLIC_HOME_URL);
 			}
-			redirect(302, HOME_URL);
 		}
 
-		return errorHandler(response);
+		return fail(response.status, {
+			error: body.message
+		});
 	}
-};
+} satisfies Actions;

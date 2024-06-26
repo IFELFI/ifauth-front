@@ -1,6 +1,7 @@
 <script>
-  import Auth from '$lib/components/Auth.svelte';
-  import Alert from '$lib/components/Alert.svelte';
+	import { enhance } from '$app/forms';
+	import Alert from "$components/Alert.svelte";
+	import Auth from "$components/Auth.svelte";
 
   export let form;
 </script>
@@ -14,14 +15,16 @@
     <p>Sign up with your email</p>
   </div>
 
-  <form slot="form" method="POST" action="?/local">
+  <form slot="form" method="POST" action="?/local" use:enhance>
     <input type="text" placeholder="email" name="email" required />
     <input type="text" placeholder="username" name="username" required />
     <input type="password" placeholder="password" name="password" required />
     <input type="password" placeholder="confirm password" name="passwordConfirm" required />
-    <div class="button-container">
-      <a href="signin">signin</a>
-      <button type="submit" class="btn">Sign up</button>  
+    <div class="bottomContainer">
+      <div class="buttonContainer">
+        <a href="signin">signin</a>
+        <button type="submit" class="btn">Sign up</button>  
+      </div>
     </div>
   </form>
 
@@ -30,5 +33,4 @@
       <Alert type="error" message={form.error} />
     {/if}
   </div>
-
 </Auth>

@@ -1,8 +1,39 @@
-import { HOME_URL } from "$env/static/private";
-import type { LayoutServerLoad } from "./$types";
+import { token } from '$lib/api/urls';
+import { code, access, isValid } from '$stores/auth';
+import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async () => {
-  return {
-    homeUrl: HOME_URL
-  }
+export const load: LayoutServerLoad = async ({ fetch }) => {
+	let currentCode: string | null = null;
+	let currentAccess: string | null = null;
+	code.subscribe((value) => (currentCode = value));
+	access.subscribe((value) => (currentAccess = value));
+
+	if (currentCode) {
+		const api = token.issue(currentCode);
+		const response = await fetch(api.url, {
+			method: api.method
+		});
+
+		if (response.status === 200) {
+			const accessToken = response.headers.get('authorization')?.split(' ')[1] ?? '';
+			access.set(accessToken);
+		}
+		code.set(null);
+	}
+
+	if (currentAccess) {
+		const api = token.isValid;
+		const response = await fetch(api.url, {
+			method: api.method,
+			headers: {
+				Authorization: `Bearer ${currentAccess}`
+			}
+		});
+    
+		if (response.status === 200) {
+			isValid.set(true);
+			return;
+		}
+	}
+	isValid.set(false);
 }
