@@ -1,27 +1,10 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { access, code, isValid } from '$stores/auth.js';
+import { code, isValid } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
-import { auth, auto, token } from '$lib/api/urls';
+import { auth, auto } from '$lib/api/urls';
 
 export const load = async ({ fetch, cookies, url }) => {
 	const redirectUrl = url.searchParams.get('redirect');
-	let accessToken: string | null = null;
-	access.subscribe((value) => {
-		accessToken = value;
-	});
-	
-	if (accessToken) {
-		const api = token.refresh;
-		const response = await fetch(api.url, {
-			method: api.method,
-			headers: {
-				Authorization: `Bearer ${accessToken}`
-			}
-		});
-		if (response.status === 200 && !redirectUrl) {
-			redirect(302, PUBLIC_HOME_URL);
-		}
-	}
 	
 	if (cookies.get('AUTO')) {
 		const api = auto.verify;
