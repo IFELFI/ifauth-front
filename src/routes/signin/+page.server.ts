@@ -1,17 +1,35 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { code } from '$stores/auth.js';
+import { access, code } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
-import { auth, auto } from '$lib/api/urls';
+import { auth, auto, token } from '$lib/api/urls';
 import { invalidate } from '$app/navigation';
 
 export const load = async ({ fetch, cookies, url }) => {
-	const api = auto.verify;
 	const redirectUrl = url.searchParams.get('redirect');
+	let accessToken: string | null = null;
+	access.subscribe((value) => {
+		accessToken = value;
+	});
+	
+	if (accessToken) {
+		const api = token.refresh;
+		const response = await fetch(api.url, {
+			method: api.method,
+			headers: {
+				Authorization: `Bearer ${accessToken}`
+			}
+		});
+		if (response.status === 200 && !redirectUrl) {
+			redirect(302, PUBLIC_HOME_URL);
+		}
+	}
+	
 	if (cookies.get('AUTO')) {
+		const api = auto.verify;
 		const response = await fetch(api.url, {
 			method: api.method,
 		});
-
+		
 		if (response.status === 200) {
 			const body = await response.json();
 			const authCode = body.code as string || null;
@@ -20,7 +38,7 @@ export const load = async ({ fetch, cookies, url }) => {
 				redirect(302, `${redirectUrl}?code=${authCode}`);
 			} else if (authCode) {
 				code.set(authCode);
-				invalidate((url) => url.pathname === PUBLIC_HOME_URL);
+				await invalidate('/');
 				redirect(302, PUBLIC_HOME_URL);
 			}
 		}
