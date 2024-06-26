@@ -1,5 +1,5 @@
 import { token } from '$lib/api/urls';
-import { code, access } from '$stores/auth';
+import { code, access, isValid } from '$stores/auth';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ fetch }) => {
@@ -31,12 +31,9 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 		});
     
 		if (response.status === 200) {
-			return {
-				valid: true
-			};
+			isValid.set(true);
+			return;
 		}
 	}
-	return {
-		valid: false
-	};
+	isValid.set(false);
 }

@@ -1,5 +1,5 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { code } from '$stores/auth.js';
+import { code, isValid } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { auth } from '$lib/api/urls.js';
 
@@ -43,6 +43,7 @@ export const actions = {
 		if (response.status === 200) {
 			const authCode = body.code as string || null;
 			code.set(authCode);
+			isValid.set(true);
 			redirect(302, PUBLIC_HOME_URL);
 		}
 

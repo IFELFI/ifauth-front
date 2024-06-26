@@ -1,11 +1,19 @@
 import { user } from "$lib/api/urls";
-import { access } from "$stores/auth";
+import { access, isValid } from "$stores/auth";
 import type { Profile } from "$types/data";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	let currentAccess: string | null = null;
+	let valid: boolean = false;
 	access.subscribe((value) => (currentAccess = value));
+	isValid.subscribe((value) => (valid = value));
+
+	if (!valid) {
+		return {
+			profile: null
+		};
+	}
 
 	if (currentAccess) {
 		const api = user.profile;

@@ -1,8 +1,7 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { access, code } from '$stores/auth.js';
+import { access, code, isValid } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { auth, auto, token } from '$lib/api/urls';
-import { invalidate } from '$app/navigation';
 
 export const load = async ({ fetch, cookies, url }) => {
 	const redirectUrl = url.searchParams.get('redirect');
@@ -33,12 +32,11 @@ export const load = async ({ fetch, cookies, url }) => {
 		if (response.status === 200) {
 			const body = await response.json();
 			const authCode = body.code as string || null;
+			code.set(authCode);
+			isValid.set(true);
 			if (authCode && redirectUrl) {
-				code.set(authCode);
 				redirect(302, `${redirectUrl}?code=${authCode}`);
 			} else if (authCode) {
-				code.set(authCode);
-				await invalidate('/');
 				redirect(302, PUBLIC_HOME_URL);
 			}
 		}
@@ -85,6 +83,7 @@ export const actions = {
 			}
 			
 			code.set(authCode);
+			isValid.set(true);
 			if (redirectUrl) {
 				redirect(302, `${redirectUrl}?code=${authCode}`);
 			} else {

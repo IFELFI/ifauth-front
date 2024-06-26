@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Logo from '$components/Logo.svelte';
 	import { btn, buttonContainer, infoContainer, infoText, infoTitle, mainContainer, mainLogo } from '$styles/main.css';
-  
+	import { onMount } from 'svelte';
+	  
   export let data;
 </script>
 
@@ -17,15 +18,15 @@
       It provides a secure and reliable way to authenticate users
     </div>
   </div>
-  {#if data?.valid}
+  {#if data.valid}
     <div class={buttonContainer}>
       <a href="profile" class={btn}>Profile</a>
-      <a href="logout" class={btn}>Logout</a>
+      <a href="logout" class={btn} data-sveltekit-reload>Logout</a>
     </div>
   {:else}
     <div class={buttonContainer}>
-      <a href="signin" class={btn}>Sign in</a>
-      <a href="signup" class={btn}>Sign up</a>
+      <a href="signin" class={btn} data-sveltekit-reload>Sign in</a>
+      <a href="signup" class={btn} data-sveltekit-reload>Sign up</a>
     </div>
   {/if}
 </div>
