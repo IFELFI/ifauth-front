@@ -3,11 +3,11 @@ import { PUBLIC_AUTH_API } from '$env/static/public';
 export const auth = {
 	local: {
 		signin: {
-			url: `${PUBLIC_AUTH_API}/auth/local/login`,
+			url: `${PUBLIC_AUTH_API}/local/signin`,
 			method: 'POST'
 		},
 		signup: {
-			url: `${PUBLIC_AUTH_API}/auth/local/signup`,
+			url: `${PUBLIC_AUTH_API}/local/signup`,
 			method: 'POST'
 		}
 	}
