@@ -43,15 +43,15 @@ export const actions = {
 		const api = auth.local.signin;
 		const response = await fetch(api.url, {
 			method: api.method,
+			headers: {
+				'Content-Type': 'application/json',
+			},
 			body: JSON.stringify({
 				email,
 				password,
 			})
 		});
 
-		const body = await response.text();
-		console.log(body);
-		
 		if (response.status === 200) {
 			isValid.set(true);
 			if (redirectUrl) {
@@ -60,7 +60,8 @@ export const actions = {
 				redirect(302, PUBLIC_HOME_URL);
 			}
 		}
-
+		
+		const body = await response.text();
 		return fail(response.status, {
 			error: body
 		});

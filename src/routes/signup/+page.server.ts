@@ -1,5 +1,5 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { code, isValid } from '$stores/auth.js';
+import { isValid } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { auth } from '$lib/api/urls.js';
 
@@ -26,7 +26,6 @@ export const actions = {
 		}
 
 		const api = auth.local.signup;
-		
 		const response = await fetch(api.url, {
 			method: api.method,
 			headers: {
@@ -39,16 +38,14 @@ export const actions = {
 			})
 		});
 
-		const body = await response.json();
+		const body = await response.text();
 		if (response.status === 200) {
-			const authCode = body.code as string || null;
-			code.set(authCode);
 			isValid.set(true);
 			redirect(302, PUBLIC_HOME_URL);
 		}
 
 		return fail(response.status, {
-			error: body.message
+			error: body
 		});
 	}
 } satisfies Actions;
