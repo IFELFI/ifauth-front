@@ -55,11 +55,12 @@ export const actions = {
 		const body = await response.json();
 		if (response.status === 200) {
 			isValid.set(true);
-			const response = await fetch(session.issue.url, {
-				method: session.issue.method
+			const issueCode = body.code as string || null;
+			if (!issueCode) return fail(400, { error: 'No code returned' });
+			const sessionApi = session.issue(issueCode);
+			const response = await fetch(sessionApi.url, {
+				method: sessionApi.method
 			});
-
-			const body = await response.text();
 
 			if (response.status === 200) {
 				if (redirectUrl) {
@@ -69,7 +70,7 @@ export const actions = {
 				}
 			}
 			return fail(response.status, {
-				error: body
+				error: 'Failed to issue session'
 			});
 		}
 

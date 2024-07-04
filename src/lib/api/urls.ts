@@ -14,11 +14,13 @@ export const auth = {
 };
 
 export const session = {
-	issue: {
-		url: `${PUBLIC_AUTH_API}/session/issue`,
-		method: 'GET'
+	issue: (code: string) => {
+		return {
+			url: `${PUBLIC_AUTH_API}/session/issue?code=${code}`,
+			method: 'GET'
+		};
 	}
-}
+};
 
 export const auto = {
 	verify: {
@@ -55,8 +57,8 @@ export const user = {
 		url: `${PUBLIC_AUTH_API}/user/profile`,
 		method: 'GET'
 	},
-  logout: { 
-    url: `${PUBLIC_AUTH_API}/user/logout`,
-    method: 'GET'
-  }
+	logout: {
+		url: `${PUBLIC_AUTH_API}/user/logout`,
+		method: 'GET'
+	}
 };
