@@ -49,7 +49,7 @@ export const actions = {
 			body: JSON.stringify({
 				email,
 				password
-			})
+			}),
 		});
 
 		const body = await response.json();
@@ -59,6 +59,7 @@ export const actions = {
 			if (!issueCode) return fail(400, { error: 'No code returned' });
 			const sessionApi = session.issue(issueCode);
 			const response = await fetch(sessionApi.url, {
+				credentials: 'include',
 				method: sessionApi.method
 			});
 
