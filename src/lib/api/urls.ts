@@ -13,6 +13,13 @@ export const auth = {
 	}
 };
 
+export const session = {
+	issue: {
+		url: `${PUBLIC_AUTH_API}/session/issue`,
+		method: 'GET'
+	}
+}
+
 export const auto = {
 	verify: {
 		url: `${PUBLIC_AUTH_API}/auto/verify`,

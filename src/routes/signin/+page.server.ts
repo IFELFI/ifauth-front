@@ -1,7 +1,7 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { isValid } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
-import { auth } from '$lib/api/urls';
+import { auth, session } from '$lib/api/urls';
 
 // export const load = async ({ fetch, cookies, url }) => {
 // 	const redirectUrl = url.searchParams.get('redirect');
@@ -33,7 +33,7 @@ export const actions = {
 		const password = data.get('password')?.toString();
 		// const autoOn = data.get('auto')?.toString() === 'on';
 		const redirectUrl = data.get('redirect')?.toString();
-		
+
 		if (!email || !password) {
 			return fail(400, {
 				error: 'Email and password are required'
@@ -44,24 +44,35 @@ export const actions = {
 		const response = await fetch(api.url, {
 			method: api.method,
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				email,
-				password,
+				password
 			})
 		});
 
+		const body = await response.json();
 		if (response.status === 200) {
 			isValid.set(true);
-			if (redirectUrl) {
-				redirect(302, `${redirectUrl}`);
-			} else {
-				redirect(302, PUBLIC_HOME_URL);
+			const response = await fetch(session.issue.url, {
+				method: session.issue.method
+			});
+
+			const body = await response.text();
+
+			if (response.status === 200) {
+				if (redirectUrl) {
+					redirect(302, `${redirectUrl}`);
+				} else {
+					redirect(302, PUBLIC_HOME_URL);
+				}
 			}
+			return fail(response.status, {
+				error: body
+			});
 		}
-		
-		const body = await response.text();
+
 		return fail(response.status, {
 			error: body
 		});
