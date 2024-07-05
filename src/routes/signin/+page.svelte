@@ -28,12 +28,6 @@
     <input type="text" placeholder="email" name="email" required />
     <input type="password" placeholder="password" name="password" required />
     <div class="bottomContainer">
-      <div class="checkBoxContainer">
-        <input type="checkbox" name="auto">
-        <p >
-          do you want to stay signed in?
-        </p>
-      </div>
       <div class="buttonContainer">
         <a href="signup">signup</a>
         <button type="submit" class="btn">Login</button>  

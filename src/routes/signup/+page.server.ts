@@ -1,7 +1,6 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { isValid } from '$stores/auth.js';
-import { PUBLIC_HOME_URL } from '$env/static/public';
 import { auth } from '$lib/api/urls.js';
+import type { AuthReplyData } from '$types/reply';
 
 export const load = async () => {};
 
@@ -25,9 +24,9 @@ export const actions = {
 			});
 		}
 
-		const api = auth.local.signup;
-		const response = await fetch(api.url, {
-			method: api.method,
+		const signupApi = auth.local.signup;
+		const response = await fetch(signupApi.url, {
+			method: signupApi.method,
 			headers: {
 				'Content-Type': 'application/json',
 			},
@@ -38,14 +37,13 @@ export const actions = {
 			})
 		});
 
-		const body = await response.text();
-		if (response.status === 200) {
-			isValid.set(true);
-			redirect(302, PUBLIC_HOME_URL);
+		if (response.status === 201) {
+			redirect(302, '/signin');
 		}
-
+		
+		const signupRes = await response.json() as AuthReplyData;
 		return fail(response.status, {
-			error: body
+			error: signupRes.message || 'Failed to sign up'
 		});
 	}
 } satisfies Actions;

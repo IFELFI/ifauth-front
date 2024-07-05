@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Logo from '$components/Logo.svelte';
 	import { btn, buttonContainer, infoContainer, infoText, infoTitle, mainContainer, mainLogo } from '$styles/main.css';
-	import { onMount } from 'svelte';
 	  
   export let data;
 </script>

@@ -2,9 +2,10 @@
 	import { writable } from 'svelte/store';
 	import '../app.css';
   import { setContext } from 'svelte';
+	import { page } from '$app/stores';
+	import Alert from '$components/Alert.svelte';
 
   const language = writable<string>('ko');
-	
   setContext('language', language);
 </script>
 
