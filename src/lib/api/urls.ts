@@ -29,11 +29,11 @@ export const session = {
 export const member = {
 	profile: {
 		get: {
-			url: `${PUBLIC_MEMBER_API}/profile`,
+			url: `${PUBLIC_MEMBER_API}/member/profile`,
 			method: 'GET'
 		},
 		update: {
-			url: `${PUBLIC_MEMBER_API}/profile`,
+			url: `${PUBLIC_MEMBER_API}/member/profile`,
 			method: 'PUT'
 		}
 	},
