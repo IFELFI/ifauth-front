@@ -1,5 +1,5 @@
-import { isValid } from '$stores/auth';
 import type { PageServerLoad } from './$types';
+import { isValid } from '$stores/server/member.store';
 
 export const load: PageServerLoad<{ valid: boolean }> = ({ cookies }) => {
 	let currentIsValid = false;

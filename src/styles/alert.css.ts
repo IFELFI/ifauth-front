@@ -1,5 +1,11 @@
 import { style, type StyleRule } from "@vanilla-extract/css"
 
+export const alertContainer = style({
+	position: 'absolute',
+	bottom: '0',
+	right: '0'
+});
+
 const alertCox: StyleRule = {
   padding: '1rem',
   backgroundColor: 'grey',

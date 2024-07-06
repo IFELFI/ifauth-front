@@ -1,12 +1,15 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
 	import '../app.css';
-  import { setContext } from 'svelte';
-	import { page } from '$app/stores';
 	import Alert from '$components/Alert.svelte';
+	import { error } from '$stores/client/error.store';
+	import { alertContainer } from '$styles/alert.css';
 
-  const language = writable<string>('ko');
-  setContext('language', language);
+  let errorMessage = '';
+
+  error.subscribe((value) => {
+    errorMessage = value;
+  });
+
 </script>
 
 <title>
@@ -15,6 +18,11 @@
 
 <main>
   <slot />
+  {#if $error}
+    <div class={alertContainer}>
+      <Alert type="error" message={errorMessage} />
+    </div>
+  {/if}
 </main>
 
 <style>

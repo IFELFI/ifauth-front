@@ -1,12 +1,13 @@
 <script>
 	import { enhance } from '$app/forms';
 	import Auth from '$components/Auth.svelte';
-  import Alert from '$components/Alert.svelte';
 	import { page } from '$app/stores';
+	import { error } from '$stores/client/error.store';
 
   export let form;
 
-   $: redirect= $page.url.searchParams.get('redirect');
+  $: error.set(form?.error || '')
+  $: redirect= $page.url.searchParams.get('redirect');
 </script>
 
 <Auth>
@@ -34,10 +35,4 @@
       </div>
     </div>
   </form>
-
-  <div slot="alert">
-    {#if form?.error}
-      <Alert type="error" message={form.error} />
-    {/if}
-  </div>
 </Auth>

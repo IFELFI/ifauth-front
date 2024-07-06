@@ -1,5 +1,5 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { isValid } from '$stores/auth.js';
+import { isValid } from '$stores/server/member.store.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { auth, session } from '$lib/api/urls';
 import type { AuthReplyData } from '$types/reply.js';
@@ -41,15 +41,15 @@ export const actions = {
 			})
 		});
 
-		const signinRes = await response.json() as AuthReplyData;
+		const signinRes = (await response.json()) as AuthReplyData;
 		if (response.status === 200) {
 			if (!signinRes.code) return fail(400, { error: 'No code returned' });
 			const sessionApi = session.issue(signinRes.code);
 			const sessionRes = await fetch(sessionApi.url, {
 				credentials: 'include',
-				method: sessionApi.method,
+				method: sessionApi.method
 			});
-			
+
 			if (sessionRes.status === 200) {
 				isValid.set(true);
 				if (redirectUrl) {

@@ -1,9 +1,11 @@
 <script>
 	import { enhance } from '$app/forms';
-	import Alert from "$components/Alert.svelte";
 	import Auth from "$components/Auth.svelte";
+  import { error } from '$stores/client/error.store';
 
   export let form;
+
+  $: error.set(form?.error || '')
 </script>
 
 <Auth>
@@ -27,10 +29,4 @@
       </div>
     </div>
   </form>
-
-  <div slot="alert">
-    {#if form?.error}
-      <Alert type="error" message={form.error} />
-    {/if}
-  </div>
 </Auth>

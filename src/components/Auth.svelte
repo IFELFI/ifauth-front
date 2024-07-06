@@ -1,5 +1,5 @@
 <script>
-	import { alertContainer, authContainer, formContainer, guideContainer, infoContainer, authLogo, logoContainer, pathContainer } from "$styles/auth.css";
+	import { authContainer, formContainer, guideContainer, infoContainer, authLogo, logoContainer, pathContainer } from "$styles/auth.css";
 	import Logo from "./Logo.svelte";
 </script>
 
@@ -13,9 +13,6 @@
       </div>
       <div class={guideContainer}>
         <slot name="guide" />
-      </div>
-      <div class={alertContainer}>
-        <slot name="alert" />
       </div>
   </div>
   <div class={formContainer}>
