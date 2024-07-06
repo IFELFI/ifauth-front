@@ -5,7 +5,7 @@
   export let text: string = 'IFELFI';
   export let className: string = '';
 
-  const homeUrl = PUBLIC_HOME_URL;
+  const homeUrl = PUBLIC_HOME_URL || '/';
 </script>
 
 <div class={className}>
