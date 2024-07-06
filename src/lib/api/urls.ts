@@ -20,15 +20,21 @@ export const session = {
 			method: 'GET'
 		};
 	},
+	destroy: {
+		url: `${PUBLIC_AUTH_API}/session/destroy`,
+		method: 'GET'
+	}
 };
 
 export const member = {
 	profile: {
-		url: `${PUBLIC_MEMBER_API}/profile`,
-		method: 'GET'
+		get: {
+			url: `${PUBLIC_MEMBER_API}/profile`,
+			method: 'GET'
+		},
+		update: {
+			url: `${PUBLIC_MEMBER_API}/profile`,
+			method: 'PUT'
+		}
 	},
-	logout: {
-		url: `${PUBLIC_MEMBER_API}/logout`,
-		method: 'GET'
-	}
 };

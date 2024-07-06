@@ -47,7 +47,7 @@ export const actions = {
 			const sessionApi = session.issue(signinRes.code);
 			const sessionRes = await fetch(sessionApi.url, {
 				credentials: 'include',
-				method: sessionApi.method
+				method: sessionApi.method,
 			});
 			
 			if (sessionRes.status === 200) {

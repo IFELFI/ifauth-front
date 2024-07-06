@@ -2,10 +2,10 @@ import { isValid } from "$stores/auth";
 import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { PUBLIC_HOME_URL } from "$env/static/public";
-import { member } from "$lib/api/urls";
+import { session } from "$lib/api/urls";
 
 export const load: PageServerLoad = async ({ fetch })=> {
-  const logoutApi = member.logout;
+  const logoutApi = session.destroy;
   await fetch(logoutApi.url, {
     method: logoutApi.method,
   });

@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	isValid.subscribe((value) => (valid = value));
 
 	if (valid) {
-		const profileApi = member.profile;
+		const profileApi = member.profile.get;
 		const response = await fetch(profileApi.url, {
 			method: profileApi.method,
 		});
