@@ -38,12 +38,6 @@ export const guideContainer = style({
 	fontSize: '1rem'
 });
 
-export const alertContainer = style({
-	position: 'absolute',
-	bottom: '0',
-	right: '0'
-});
-
 export const formContainer = style({
 	display: 'flex',
 	flexDirection: 'column',

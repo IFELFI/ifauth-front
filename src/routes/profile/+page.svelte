@@ -1,9 +1,14 @@
 <script lang="ts">
 	import Logo from "$components/Logo.svelte";
   import Profile from "$components/Profile.svelte";
-	import { profilePageColumnContainer, profilePageContainer, profilePageLogo } from "$styles/profile.css.js";
+	import { profilePageColumnContainer, profilePageContainer, profilePageLogo } from "$styles/profile.css";
+  import { error } from '$stores/client/error.store';
 
   export let data;
+
+  $: if (data?.error) {
+    error.set(data.error);
+  }
 </script>
 
 <div class={profilePageContainer}>

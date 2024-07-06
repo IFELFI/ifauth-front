@@ -1,12 +1,13 @@
 <script>
 	import { enhance } from '$app/forms';
 	import Auth from '$components/Auth.svelte';
-  import Alert from '$components/Alert.svelte';
 	import { page } from '$app/stores';
+	import { error } from '$stores/client/error.store';
 
   export let form;
 
-   $: redirect= $page.url.searchParams.get('redirect');
+  $: error.set(form?.error || '')
+  $: redirect= $page.url.searchParams.get('redirect');
 </script>
 
 <Auth>
@@ -28,22 +29,10 @@
     <input type="text" placeholder="email" name="email" required />
     <input type="password" placeholder="password" name="password" required />
     <div class="bottomContainer">
-      <div class="checkBoxContainer">
-        <input type="checkbox" name="auto">
-        <p >
-          do you want to stay signed in?
-        </p>
-      </div>
       <div class="buttonContainer">
         <a href="signup">signup</a>
         <button type="submit" class="btn">Login</button>  
       </div>
     </div>
   </form>
-
-  <div slot="alert">
-    {#if form?.error}
-      <Alert type="error" message={form.error} />
-    {/if}
-  </div>
 </Auth>
