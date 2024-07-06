@@ -23,6 +23,10 @@ export const session = {
 	destroy: {
 		url: `${PUBLIC_AUTH_API}/session/destroy`,
 		method: 'GET'
+	},
+	check: {
+		url: `${PUBLIC_AUTH_API}/session/check`,
+		method: 'GET'
 	}
 };
 

@@ -3,15 +3,28 @@ import { isValid } from '$stores/server/member.store.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { auth, session } from '$lib/api/urls';
 import type { AuthReplyData } from '$types/reply.js';
+import { redirectStore } from '$stores/server/redirect.store.js';
 
 export const load = async ({ cookies, url }) => {
-	const redirectUrl = url.searchParams.get('redirect');
+	let redirectUrl = url.searchParams.get('redirect');
+	if (redirectUrl)
+		redirectStore.set(redirectUrl);
+	else {
+		redirectStore.subscribe(value => {
+			redirectUrl = value;
+		});
+	}
 
 	if (cookies.get('SID')) {
-		if (redirectUrl) {
-			redirect(302, redirectUrl);
+		const checkSessionApi = session.check;
+		const response = await fetch(checkSessionApi.url, {
+			method: checkSessionApi.method
+		});
+		if (response.ok) {
+			isValid.set(true);
+			redirect(302, redirectUrl || PUBLIC_HOME_URL);
 		} else {
-			redirect(302, PUBLIC_HOME_URL);
+			isValid.set(false);
 		}
 	}
 };
