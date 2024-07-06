@@ -20,8 +20,6 @@ export const load: PageServerLoad = async ({ fetch }) => {
 				profile
 			};
 		}
-		const body = await response.json();
-		console.error(JSON.stringify(body));
 	}
 
 	redirect(302, `${PUBLIC_HOME_URL}/signin`);
