@@ -4,6 +4,8 @@
 	import { profilePageColumnContainer, profilePageContainer, profilePageLogo } from "$styles/profile.css.js";
 
   export let data;
+
+  console.log(data);
 </script>
 
 <div class={profilePageContainer}>
