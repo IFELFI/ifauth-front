@@ -1,5 +1,4 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { isValid } from '$stores/server/member.store.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { auth, session } from '$lib/api/urls';
 import type { AuthReplyData } from '$types/reply.js';
@@ -21,10 +20,7 @@ export const load = async ({ cookies, url }) => {
 			method: checkSessionApi.method
 		});
 		if (response.ok) {
-			isValid.set(true);
 			redirect(302, redirectUrl || PUBLIC_HOME_URL);
-		} else {
-			isValid.set(false);
 		}
 	}
 };
@@ -64,7 +60,6 @@ export const actions = {
 			});
 
 			if (sessionRes.status === 200) {
-				isValid.set(true);
 				if (redirectUrl) {
 					redirect(302, `${redirectUrl}`);
 				} else {
