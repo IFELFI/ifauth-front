@@ -9,7 +9,7 @@ export const authInfoContainer = style({
 	paddingBottom: '2rem',
 
 	'@media': {
-		'(max-width: 800px)': {
+		'(max-width: 600px)': {
 			width: '100%',
 			alignItems: 'center'
 		}
@@ -30,9 +30,16 @@ export const authGuide = style({
 
 export const formContainer = style({
 	display: 'flex',
+	height: '100%',
 	width: '100%',
 	flexDirection: 'column',
-	justifyContent: 'center'
+	justifyContent: 'center',
+
+	'@media': {
+		'(max-width: 600px)': {
+			width: '100%'
+		}
+	}
 });
 
 // Signin Form

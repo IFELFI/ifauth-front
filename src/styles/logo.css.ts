@@ -6,7 +6,7 @@ export const logoContainer = style({
 	alignItems: 'center',
 	flexDirection: 'column',
 	textDecorationLine: 'none',
-	gap: '0.5rem',
+	gap: '0.5rem'
 });
 
 export const logoText = style({
@@ -18,12 +18,12 @@ export const logoText = style({
 	backgroundClip: 'text',
 	textTransform: 'uppercase',
 	fontWeight: 'bold',
-	WebkitTextStroke: '1px black',
+	WebkitTextStroke: '1px black'
 });
 
 export const logoImg = style({
 	display: 'block',
 	alignContent: 'center',
 	justifyContent: 'center',
-	width: '100%',
+	width: '100%'
 });

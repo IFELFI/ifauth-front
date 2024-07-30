@@ -1,19 +1,19 @@
 import { style } from '@vanilla-extract/css';
 
-export const mainContainer = style({
-  display: 'flex',
+export const homeContainer = style({
+	display: 'flex',
 	width: '100%',
 	height: '100%',
-  flexDirection: 'column',
+	flexDirection: 'column',
 	justifyContent: 'center',
-  gap: '1rem',
+	gap: '1rem'
 });
 
 export const infoContainer = style({
 	display: 'flex',
 	flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
+	justifyContent: 'center',
+	alignItems: 'flex-start'
 });
 
 export const infoTitle = style({
@@ -30,12 +30,12 @@ export const infoText = style({
 export const buttonContainer = style({
 	display: 'flex',
 	justifyContent: 'flex-end',
-  alignItems: 'center',
-  gap: '1rem',
+	alignItems: 'center',
+	gap: '1rem',
 
 	'@media': {
 		'screen and (max-width: 600px)': {
-			justifyContent: 'center',
+			justifyContent: 'center'
 		}
 	}
 });
@@ -49,7 +49,7 @@ export const btn = style({
 	fontWeight: 'bold',
 	cursor: 'pointer',
 	transition: 'background-color 0.3s',
-  textDecorationLine: 'none',
+	textDecorationLine: 'none',
 	selectors: {
 		'&:hover': {
 			backgroundColor: 'rgb(255, 230, 0)'

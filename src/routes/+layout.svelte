@@ -2,6 +2,7 @@
 	import Alert from '$components/Alert.svelte';
 	import { error } from '$stores/client/error.store';
 	import { alertContainer } from '$styles/alert.css';
+	import { pageContainer } from '$styles/global/container.css';
 	import '../styles/global/root.css';
 
 	let errorMessage = '';
@@ -13,7 +14,7 @@
 
 <title> IFELFI </title>
 
-<main>
+<main class={pageContainer}>
 	<slot />
 	{#if $error}
 		<div class={alertContainer}>
@@ -21,14 +22,3 @@
 		</div>
 	{/if}
 </main>
-
-<style>
-	main {
-		display: flex;
-		width: 100%;
-		min-height: 100vh;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-</style>

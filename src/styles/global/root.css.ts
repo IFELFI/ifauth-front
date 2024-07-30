@@ -6,6 +6,7 @@ globalStyle('html', {
 });
 
 globalStyle('body', {
+	display: 'flex',
 	width: '100%',
 	height: '100%',
 	margin: 0,
@@ -17,4 +18,5 @@ globalStyle('body', {
 	msUserSelect: 'none',
 	backgroundColor: 'rgba(0, 0, 0, 0.05)',
 	color: 'rgba(0, 0, 0, 0.8)'
+	// overflow: 'hidden',
 });

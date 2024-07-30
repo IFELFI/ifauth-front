@@ -9,10 +9,12 @@
 	const homeUrl = PUBLIC_HOME_URL || '/';
 </script>
 
-<div style={`
+<div
+	style={`
 	width: ${size}rem;
 	font-size: ${size / 3}rem;
-`}>
+`}
+>
 	<a class={logoContainer} href={homeUrl}>
 		<img src={logo} alt="logo" class={logoImg} />
 		{#if size >= 6}

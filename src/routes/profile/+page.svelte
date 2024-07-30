@@ -1,10 +1,7 @@
 <script lang="ts">
 	import Logo from '$components/Logo.svelte';
 	import Profile from '$components/Profile.svelte';
-	import {
-		profilePageColumnContainer,
-		profilePageContainer,
-	} from '$styles/profile.css';
+	import { profilePageColumnContainer, profilePageContainer } from '$styles/profile.css';
 	import { error } from '$stores/client/error.store';
 
 	export let data;

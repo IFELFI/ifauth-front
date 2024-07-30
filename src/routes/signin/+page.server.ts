@@ -59,7 +59,6 @@ export const actions = {
 			});
 
 			console.log(sessionRes);
-			
 
 			if (sessionRes.status === 200) {
 				if (redirectUrl) {
