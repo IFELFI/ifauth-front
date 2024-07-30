@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_레이어_2" data-name="레이어_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 146.28 110.85">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#yellowgrad);
+        stroke: #861405;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+    </style>
+    <linearGradient id="yellowgrad" x1="73.77" y1="-1.92" x2="72.55" y2="125.82" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#faee00"/>
+      <stop offset="1" stop-color="#f7ae2d"/>
+    </linearGradient>
+  </defs>
+  <g id="logo">
+    <path id="logo-2" data-name="logo" class="cls-1" d="M117.8,109.35H11.5c-5.52,0-10-4.48-10-10s4.48-10,10-10h25.43v-35.8c-9.94-3.98-16.99-13.72-16.99-25.07,0-14.88,12.11-26.99,26.99-26.99s26.99,12.11,26.99,26.99c0,11.35-7.04,21.08-16.99,25.07v35.8s50.87,0,50.87,0v-35.8c-9.94-3.98-16.99-13.72-16.99-25.07,0-14.88,12.11-26.99,26.99-26.99s26.99,12.11,26.99,26.99c0,11.35-7.04,21.08-16.99,25.07v45.8c0,5.52-4.48,10-10,10ZM117.8,21.5c-3.85,0-6.99,3.13-6.99,6.99s3.13,6.99,6.99,6.99,6.99-3.13,6.99-6.99-3.13-6.99-6.99-6.99ZM46.93,21.5c-3.85,0-6.99,3.13-6.99,6.99s3.13,6.99,6.99,6.99,6.99-3.13,6.99-6.99-3.13-6.99-6.99-6.99Z"/>
+  </g>
+</svg>

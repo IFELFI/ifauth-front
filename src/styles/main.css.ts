@@ -1,54 +1,50 @@
-import { style } from "@vanilla-extract/css";
-
-export const mainLogo = style({
-  fontSize: '4rem',
-});
+import { style } from '@vanilla-extract/css';
 
 export const mainContainer = style({
   display: 'flex',
+	width: '100%',
+	height: '100%',
   flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'white',
-  padding: '2rem',
-  borderRadius: '20px',
-  width: 'clamp(500px, 50%, 900px)',
-  height: 'clamp(200px, 30vh, 500px)'
+  gap: '1rem',
 });
 
 export const infoContainer = style({
-  display: 'flex',
-  flexDirection: 'column'
+	display: 'flex',
+	flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
 });
 
 export const infoTitle = style({
-  fontSize: '2rem',
-  fontWeight: 'bold',
-  textTransform: 'capitalize'
+	fontSize: '2rem',
+	fontWeight: 'bold',
+	textTransform: 'capitalize'
 });
 
 export const infoText = style({
-  fontSize: '1rem'
+	fontSize: '1rem'
 });
 
 export const buttonContainer = style({
-  display: 'flex',
-  justifyContent: 'center',
+	display: 'flex',
+	justifyContent: 'center',
+  alignItems: 'center',
+  gap: '1rem',
 });
 
 export const btn = style({
-  padding: '1rem',
-  margin: '1rem',
-  borderRadius: '10px',
-  backgroundColor: 'rgb(255, 115, 0)',
-  color: 'white',
-  fontSize: '1rem',
-  fontWeight: 'bold',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s',
-  selectors: {
-    '&:hover': {
-      backgroundColor: 'rgb(255, 230, 0)'
-    }
-  }
+	padding: '1rem',
+	borderRadius: '10px',
+	backgroundColor: 'rgb(255, 115, 0)',
+	color: 'white',
+	fontSize: '1rem',
+	fontWeight: 'bold',
+	cursor: 'pointer',
+	transition: 'background-color 0.3s',
+  textDecorationLine: 'none',
+	selectors: {
+		'&:hover': {
+			backgroundColor: 'rgb(255, 230, 0)'
+		}
+	}
 });

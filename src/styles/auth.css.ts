@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-export const authContainer = style({
+export const authCard = style({
 	display: 'grid',
 	gridTemplateRows: 'auto 1fr',
 	gridTemplateColumns: '1fr 1.5fr',
@@ -8,10 +8,19 @@ export const authContainer = style({
 	minHeight: '300px',
 	padding: '3rem 4rem',
 	borderRadius: '20px',
-	backgroundColor: 'white'
+	backgroundColor: 'white',
+
+	'@media': {
+		'(min-width: 400px)': {
+			width: '50%',
+			padding: '3rem 4rem'
+		}
+	}
 });
 
 export const logoContainer = style({
+	display: 'flex',
+	justifyContent: 'center',
 	selectors: {
 		[`&:first-child`]: {
 			gridColumn: '1 / span 2'
@@ -20,7 +29,7 @@ export const logoContainer = style({
 });
 
 export const authLogo = style({
-	fontSize: '2rem',
+	fontSize: '2rem'
 });
 
 export const infoContainer = style({

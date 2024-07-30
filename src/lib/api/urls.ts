@@ -40,5 +40,5 @@ export const member = {
 			url: `${PUBLIC_MEMBER_API}/member/profile`,
 			method: 'PUT'
 		}
-	},
+	}
 };

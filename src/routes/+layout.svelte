@@ -1,36 +1,34 @@
 <script lang="ts">
-	import '../app.css';
 	import Alert from '$components/Alert.svelte';
 	import { error } from '$stores/client/error.store';
 	import { alertContainer } from '$styles/alert.css';
+	import '../styles/global/root.css';
 
-  let errorMessage = '';
+	let errorMessage = '';
 
-  error.subscribe((value) => {
-    errorMessage = value;
-  });
-
+	error.subscribe((value) => {
+		errorMessage = value;
+	});
 </script>
 
-<title>
-  IFELFI
-</title>
+<title> IFELFI </title>
 
 <main>
-  <slot />
-  {#if $error}
-    <div class={alertContainer}>
-      <Alert type="error" message={errorMessage} />
-    </div>
-  {/if}
+	<slot />
+	{#if $error}
+		<div class={alertContainer}>
+			<Alert type="error" message={errorMessage} />
+		</div>
+	{/if}
 </main>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
+	main {
+		display: flex;
+		width: 100%;
+		min-height: 100vh;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
 </style>

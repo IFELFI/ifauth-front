@@ -7,7 +7,7 @@ import { redirectStore } from '$stores/server/redirect.store';
 export const load = async ({ cookies }) => {
 	let redirectUrl: string | null = null;
 
-	redirectStore.subscribe(value => {
+	redirectStore.subscribe((value) => {
 		redirectUrl = value;
 	});
 
@@ -32,7 +32,7 @@ export const actions = {
 
 		let redirectUrl: string | null = null;
 
-		redirectStore.subscribe(value => {
+		redirectStore.subscribe((value) => {
 			redirectUrl = value;
 		});
 
@@ -52,7 +52,7 @@ export const actions = {
 		const response = await fetch(signupApi.url, {
 			method: signupApi.method,
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				email,
@@ -64,8 +64,8 @@ export const actions = {
 		if (response.status === 201) {
 			redirect(302, redirectUrl || PUBLIC_HOME_URL || '/');
 		}
-		
-		const signupRes = await response.json() as AuthReplyData;
+
+		const signupRes = (await response.json()) as AuthReplyData;
 		return fail(response.status, {
 			error: signupRes.message || 'Failed to sign up'
 		});
