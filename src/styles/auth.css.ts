@@ -87,7 +87,7 @@ export const authButtonContainer = style({
 	gap: '1rem',
 
 	'@media': {
-		'(max-width: 800px)': {
+		'(max-width: 600px)': {
 			justifyContent: 'center'
 		}
 	}

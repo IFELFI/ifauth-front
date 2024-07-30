@@ -12,13 +12,18 @@ export const cardContainer = style({
 
   boxSizing: 'border-box',
 
-  width: 'clamp(600px, 50vw, 700px)',
-  height: 'clamp(400px, 30vw, 100vh)',
+  width: 'clamp(35rem, 50vw, 43rem)',
+  height: '25rem',
 
   '@media': {
+    // If the screen width is less than 600px, the width and height will be 100%.
     'screen and (max-width: 600px)': {
       width: '100%',
       height: '100%',
+    },
+    // If the screen height is less than 25rem, the height will be filled.
+    'screen and (max-height: 25rem)': {
+      height: 'clamp(20rem, 100vh, 25rem)',
     }
   }
 });
