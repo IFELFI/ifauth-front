@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import { card, cardContainer, cardLeft } from "$styles/global/container.css";
+	import { card, cardContainer, cardLeft, miniCardLeft } from "$styles/global/container.css";
 	import Logo from './Logo.svelte';
 
   export let size: number = 6;
@@ -8,11 +8,9 @@
 
 <div class={cardContainer}>
   <div class={card}>
-    <div class={cardLeft} style={
-      size >= 6
-        ? 'align-items: center; justify-content: center;'
-        : ''
-    }>
+    <div class={size >= 6 ? `${cardLeft}` : 
+        `${miniCardLeft}`
+      } >
       <Logo text={text} size={size} />
       <slot name='leftContent' />
     </div>

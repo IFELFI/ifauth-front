@@ -12,10 +12,7 @@
 	export let data;
 </script>
 
-<Card size={2}>
-  <div slot="leftContent">
-    dasihfsa
-  </div>
+<Card size={6}>
   <div class={mainContainer} slot="rightContent">
 		<div class={infoContainer}>
       <div class={infoTitle}>Manage your profile</div>

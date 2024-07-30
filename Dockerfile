@@ -1,7 +1,7 @@
 FROM node:22-alpine as build
 
 LABEL title="ifauth-front"
-LABEL version="1.1.1"
+LABEL version="1.2.0"
 LABEL maintainer="ifelfi"
 
 RUN apk add --no-cache g++ make py3-pip

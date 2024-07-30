@@ -5,6 +5,7 @@ export const mainContainer = style({
 	width: '100%',
 	height: '100%',
   flexDirection: 'column',
+	justifyContent: 'center',
   gap: '1rem',
 });
 
@@ -18,7 +19,8 @@ export const infoContainer = style({
 export const infoTitle = style({
 	fontSize: '2rem',
 	fontWeight: 'bold',
-	textTransform: 'capitalize'
+	textTransform: 'capitalize',
+	whiteSpace: 'nowrap'
 });
 
 export const infoText = style({
@@ -27,9 +29,15 @@ export const infoText = style({
 
 export const buttonContainer = style({
 	display: 'flex',
-	justifyContent: 'center',
+	justifyContent: 'flex-end',
   alignItems: 'center',
   gap: '1rem',
+
+	'@media': {
+		'screen and (max-width: 600px)': {
+			justifyContent: 'center',
+		}
+	}
 });
 
 export const btn = style({

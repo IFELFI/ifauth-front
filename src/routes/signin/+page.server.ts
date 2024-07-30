@@ -58,6 +58,9 @@ export const actions = {
 				method: sessionApi.method
 			});
 
+			console.log(sessionRes);
+			
+
 			if (sessionRes.status === 200) {
 				if (redirectUrl) {
 					redirect(302, `${redirectUrl}`);

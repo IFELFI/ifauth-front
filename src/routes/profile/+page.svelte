@@ -4,7 +4,6 @@
 	import {
 		profilePageColumnContainer,
 		profilePageContainer,
-		profilePageLogo
 	} from '$styles/profile.css';
 	import { error } from '$stores/client/error.store';
 
@@ -16,7 +15,7 @@
 </script>
 
 <div class={profilePageContainer}>
-	<Logo text={'ifauth'} className={profilePageLogo} />
+	<Logo text={'ifauth'} />
 	{#if data?.profile}
 		<div class={profilePageColumnContainer}>
 			<Profile profile={data.profile} />
