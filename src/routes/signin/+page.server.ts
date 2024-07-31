@@ -6,10 +6,9 @@ import { redirectStore } from '$stores/server/redirect.store.js';
 
 export const load = async ({ cookies, url }) => {
 	let redirectUrl = url.searchParams.get('redirect');
-	if (redirectUrl)
-		redirectStore.set(redirectUrl);
+	if (redirectUrl) redirectStore.set(redirectUrl);
 	else {
-		redirectStore.subscribe(value => {
+		redirectStore.subscribe((value) => {
 			redirectUrl = value;
 		});
 	}
@@ -58,6 +57,8 @@ export const actions = {
 				credentials: 'include',
 				method: sessionApi.method
 			});
+
+			console.log(sessionRes);
 
 			if (sessionRes.status === 200) {
 				if (redirectUrl) {

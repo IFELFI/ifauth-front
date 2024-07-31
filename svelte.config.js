@@ -16,7 +16,7 @@ const config = {
 			out: 'build'
 		}),
 		csrf: {
-			checkOrigin: true 
+			checkOrigin: true
 		},
 		alias: {
 			$components: './src/components',
@@ -24,7 +24,7 @@ const config = {
 			$utils: './src/utils',
 			$styles: './src/styles',
 			$types: './src/types'
-		},
+		}
 	}
 };
 
