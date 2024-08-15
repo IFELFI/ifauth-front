@@ -1,51 +1,136 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
-export const authContainer = style({
-	display: 'grid',
-	gridTemplateRows: 'auto 1fr',
-	gridTemplateColumns: '1fr 1.5fr',
-	width: 'clamp(400px, 50%, 800px)',
-	minHeight: '300px',
-	padding: '3rem 4rem',
-	borderRadius: '20px',
-	backgroundColor: 'white'
-});
+export const authInfoContainer = style({
+	display: 'flex',
+	flexDirection: 'column',
+	gap: '1rem',
+	height: '100%',
+	justifyContent: 'center',
+	paddingBottom: '2rem',
 
-export const logoContainer = style({
-	selectors: {
-		[`&:first-child`]: {
-			gridColumn: '1 / span 2'
+	'@media': {
+		'(max-width: 600px)': {
+			width: '100%',
+			alignItems: 'center'
 		}
 	}
 });
 
-export const authLogo = style({
-	fontSize: '2rem',
-});
-
-export const infoContainer = style({
+export const authPath = style({
 	display: 'flex',
-	flexDirection: 'column'
+	fontSize: '2.5rem',
+	textTransform: 'capitalize',
+	whiteSpace: 'nowrap'
 });
 
-export const pathContainer = style({
-	display: 'flex',
-	fontSize: '2.5rem'
-});
-
-export const guideContainer = style({
+export const authGuide = style({
 	display: 'flex',
 	fontSize: '1rem'
 });
 
-export const alertContainer = style({
-	position: 'absolute',
-	bottom: '0',
-	right: '0'
-});
-
 export const formContainer = style({
 	display: 'flex',
+	height: '100%',
+	width: '100%',
 	flexDirection: 'column',
-	justifyContent: 'center'
+	justifyContent: 'center',
+
+	'@media': {
+		'(max-width: 600px)': {
+			width: '100%'
+		}
+	}
+});
+
+// Signin Form
+export const loginForm = style({
+	display: 'flex',
+	flexDirection: 'column',
+	gap: '1rem'
+});
+
+globalStyle(`${loginForm} input`, {
+	padding: '1rem',
+	width: '100%',
+	borderRadius: '10px',
+	border: '1px solid rgba(0, 0, 0, 0.2)',
+	fontSize: '1rem',
+	outline: 'none',
+	transition: 'border-color 0.3s',
+	boxSizing: 'border-box'
+});
+
+globalStyle(`${loginForm} input:focus`, {
+	borderColor: 'rgb(255, 115, 0)'
+});
+
+// Signup Form
+export const signupForm = style({
+	display: 'flex',
+	width: '100%',
+	flexDirection: 'column',
+	gap: '1rem'
+});
+
+globalStyle(`${signupForm} input`, {
+	padding: '0.75rem 1rem',
+	width: '100%',
+	borderRadius: '10px',
+	border: '1px solid rgba(0, 0, 0, 0.2)',
+	fontSize: '1rem',
+	outline: 'none',
+	transition: 'border-color 0.3s',
+	boxSizing: 'border-box'
+});
+
+globalStyle(`${signupForm} input:focus`, {
+	borderColor: 'rgb(255, 115, 0)'
+});
+
+export const authButtonContainer = style({
+	display: 'flex',
+	justifyContent: 'flex-end',
+	alignItems: 'center',
+	gap: '1rem',
+
+	'@media': {
+		'(max-width: 600px)': {
+			justifyContent: 'center'
+		}
+	}
+});
+
+globalStyle(`${authButtonContainer} button`, {
+	padding: '0.5rem 1rem',
+	border: 'none',
+	borderRadius: '10px',
+	backgroundColor: 'rgb(255, 115, 0)',
+	color: 'white',
+	fontSize: '1rem',
+	fontWeight: 'bold',
+	cursor: 'pointer',
+	transition: 'background-color 0.3s',
+	textDecorationLine: 'none'
+});
+
+globalStyle(`${authButtonContainer} button:hover`, {
+	backgroundColor: 'rgb(255, 230, 0)'
+});
+
+globalStyle(`${authButtonContainer} button:disabled`, {
+	backgroundColor: 'rgba(0, 0, 0, 0.2)',
+	cursor: 'not-allowed'
+});
+
+globalStyle(`${authButtonContainer} a`, {
+	textDecorationLine: 'none',
+	color: 'rgb(255, 115, 0)',
+	fontSize: '1rem',
+	fontWeight: 'bold',
+	cursor: 'pointer',
+	transition: 'color 0.3s'
+});
+
+globalStyle(`${authButtonContainer} a:hover`, {
+	color: 'rgb(255, 230, 0)'
 });

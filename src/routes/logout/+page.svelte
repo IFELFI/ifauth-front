@@ -1,3 +1,3 @@
 <div>
-  <p>Logout Success!</p>
+	<p>Logout Success!</p>
 </div>

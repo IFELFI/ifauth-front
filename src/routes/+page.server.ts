@@ -1,10 +1,20 @@
-import { isValid } from "$stores/auth";
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad } from './$types';
+import { session } from '$lib/api/urls';
 
-export const load: PageServerLoad<{ valid: boolean }> = () => {
-	let currentIsValid = false;
-	isValid.subscribe((value) => (currentIsValid = value));
+export const load: PageServerLoad<{ valid: boolean }> = async ({ cookies, fetch }) => {
+	if (cookies.get('SID')) {
+		const checkSessionApi = session.check;
+		const response = await fetch(checkSessionApi.url, {
+			method: checkSessionApi.method
+		});
+		if (response.ok) {
+			return {
+				valid: true
+			};
+		}
+	}
+
 	return {
-		valid: currentIsValid
+		valid: false
 	};
 };

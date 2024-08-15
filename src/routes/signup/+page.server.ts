@@ -1,9 +1,26 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { code, isValid } from '$stores/auth.js';
+import { auth, session } from '$lib/api/urls.js';
+import type { AuthReplyData } from '$types/reply';
 import { PUBLIC_HOME_URL } from '$env/static/public';
-import { auth } from '$lib/api/urls.js';
+import { redirectStore } from '$stores/server/redirect.store';
 
-export const load = async () => {};
+export const load = async ({ cookies }) => {
+	let redirectUrl: string | null = null;
+
+	redirectStore.subscribe((value) => {
+		redirectUrl = value;
+	});
+
+	if (cookies.get('SID')) {
+		const checkSessionApi = session.check;
+		const response = await fetch(checkSessionApi.url, {
+			method: checkSessionApi.method
+		});
+		if (response.ok) {
+			redirect(302, redirectUrl || PUBLIC_HOME_URL);
+		}
+	}
+};
 
 export const actions = {
 	local: async ({ request, fetch }) => {
@@ -12,6 +29,12 @@ export const actions = {
 		const username = data.get('username')?.toString();
 		const password = data.get('password')?.toString();
 		const passwordConfirm = data.get('passwordConfirm')?.toString();
+
+		let redirectUrl: string | null = null;
+
+		redirectStore.subscribe((value) => {
+			redirectUrl = value;
+		});
 
 		if (password !== passwordConfirm) {
 			return fail(400, {
@@ -25,12 +48,11 @@ export const actions = {
 			});
 		}
 
-		const api = auth.local.signup;
-		
-		const response = await fetch(api.url, {
-			method: api.method,
+		const signupApi = auth.local.signup;
+		const response = await fetch(signupApi.url, {
+			method: signupApi.method,
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				email,
@@ -39,16 +61,13 @@ export const actions = {
 			})
 		});
 
-		const body = await response.json();
-		if (response.status === 200) {
-			const authCode = body.code as string || null;
-			code.set(authCode);
-			isValid.set(true);
-			redirect(302, PUBLIC_HOME_URL);
+		if (response.status === 201) {
+			redirect(302, redirectUrl || PUBLIC_HOME_URL || '/');
 		}
 
+		const signupRes = (await response.json()) as AuthReplyData;
 		return fail(response.status, {
-			error: body.message
+			error: signupRes.message || 'Failed to sign up'
 		});
 	}
 } satisfies Actions;

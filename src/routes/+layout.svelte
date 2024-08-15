@@ -1,27 +1,24 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
-	import '../app.css';
-  import { setContext } from 'svelte';
+	import Alert from '$components/Alert.svelte';
+	import { error } from '$stores/client/error.store';
+	import { alertContainer } from '$styles/alert.css';
+	import { pageContainer } from '$styles/global/container.css';
+	import '../styles/global/root.css';
 
-  const language = writable<string>('ko');
-	
-  setContext('language', language);
+	let errorMessage = '';
+
+	error.subscribe((value) => {
+		errorMessage = value;
+	});
 </script>
 
-<title>
-  IFELFI
-</title>
+<title> IFELFI </title>
 
-<main>
-  <slot />
+<main class={pageContainer}>
+	<slot />
+	{#if $error}
+		<div class={alertContainer}>
+			<Alert type="error" message={errorMessage} />
+		</div>
+	{/if}
 </main>
-
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
-</style>

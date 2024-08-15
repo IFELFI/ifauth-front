@@ -1,81 +1,79 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { code, isValid } from '$stores/auth.js';
 import { PUBLIC_HOME_URL } from '$env/static/public';
-import { auth, auto } from '$lib/api/urls';
+import { auth, session } from '$lib/api/urls';
+import type { AuthReplyData } from '$types/reply.js';
+import { redirectStore } from '$stores/server/redirect.store.js';
 
-export const load = async ({ fetch, cookies, url }) => {
-	const redirectUrl = url.searchParams.get('redirect');
-	
-	if (cookies.get('AUTO')) {
-		const api = auto.verify;
-		const response = await fetch(api.url, {
-			method: api.method,
+export const load = async ({ cookies, url }) => {
+	let redirectUrl = url.searchParams.get('redirect');
+	if (redirectUrl) redirectStore.set(redirectUrl);
+	else {
+		redirectStore.subscribe((value) => {
+			redirectUrl = value;
 		});
-		
-		if (response.status === 200) {
-			const body = await response.json();
-			const authCode = body.code as string || null;
-			code.set(authCode);
-			isValid.set(true);
-			if (authCode && redirectUrl) {
-				redirect(302, `${redirectUrl}?code=${authCode}`);
-			} else if (authCode) {
-				redirect(302, PUBLIC_HOME_URL);
-			}
+	}
+
+	if (cookies.get('SID')) {
+		const checkSessionApi = session.check;
+		const response = await fetch(checkSessionApi.url, {
+			method: checkSessionApi.method
+		});
+		if (response.ok) {
+			redirect(302, redirectUrl || PUBLIC_HOME_URL);
 		}
 	}
-}
+};
 
 export const actions = {
 	local: async ({ request, fetch }) => {
 		const data = await request.formData();
 		const email = data.get('email')?.toString();
 		const password = data.get('password')?.toString();
-		const autoOn = data.get('auto')?.toString() === 'on';
 		const redirectUrl = data.get('redirect')?.toString();
-		
+
 		if (!email || !password) {
 			return fail(400, {
 				error: 'Email and password are required'
 			});
 		}
 
-		const api = auth.local.signin;
-		const response = await fetch(api.url, {
-			method: api.method,
+		const signinApi = auth.local.signin;
+		const response = await fetch(signinApi.url, {
+			method: signinApi.method,
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				email,
-				password,
-				auto: autoOn
+				password
 			})
 		});
 
-		const body = await response.json();
+		const signinRes = (await response.json()) as AuthReplyData;
 		if (response.status === 200) {
-			const autoAuthCode = body.autoAuthCode as string || null;
-			const authCode = body.code as string || null;
+			if (!signinRes.code) return fail(400, { error: 'No code returned' });
+			const sessionApi = session.issue(signinRes.code);
+			const sessionRes = await fetch(sessionApi.url, {
+				credentials: 'include',
+				method: sessionApi.method
+			});
 
-			if (autoAuthCode) {
-				const api = auto.issue(autoAuthCode);
-				await fetch(api.url, {
-					method: api.method,
-				});
+			console.log(sessionRes);
+
+			if (sessionRes.status === 200) {
+				if (redirectUrl) {
+					redirect(302, `${redirectUrl}`);
+				} else {
+					redirect(302, PUBLIC_HOME_URL);
+				}
 			}
-			
-			code.set(authCode);
-			isValid.set(true);
-			if (redirectUrl) {
-				redirect(302, `${redirectUrl}?code=${authCode}`);
-			} else {
-				redirect(302, PUBLIC_HOME_URL);
-			}
+			return fail(sessionRes.status, {
+				error: 'Failed to issue session'
+			});
 		}
 
 		return fail(response.status, {
-			error: body.message
+			error: signinRes.message || 'Failed to sign in'
 		});
 	}
 } satisfies Actions;
