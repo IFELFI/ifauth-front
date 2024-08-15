@@ -1,55 +1,48 @@
-import { PUBLIC_AUTH_API } from '$env/static/public';
+import { PUBLIC_AUTH_API, PUBLIC_MEMBER_API } from '$env/static/public';
 
-export const auth = {
-	local: {
-		signin: {
-			url: `${PUBLIC_AUTH_API}/auth/local/login`,
-			method: 'POST'
-		},
-		signup: {
-			url: `${PUBLIC_AUTH_API}/auth/local/signup`,
-			method: 'POST'
+export const local = {
+	signin: {
+		url: `${PUBLIC_AUTH_API}/local/signin`,
+		method: 'POST'
+	},
+	signup: {
+		url: `${PUBLIC_AUTH_API}/local/signup`,
+		method: 'POST'
+	},
+	confirm: (token: string) => {
+		return {
+			url: `${PUBLIC_AUTH_API}/local/confirm?token=${token}`,
+			method: 'GET'
 		}
 	}
 };
 
-export const auto = {
-	verify: {
-		url: `${PUBLIC_AUTH_API}/auto/verify`,
-		method: 'GET'
-	},
+export const session = {
 	issue: (code: string) => {
 		return {
-			url: `${PUBLIC_AUTH_API}/auto/issue?code=${code}`,
+			url: `${PUBLIC_AUTH_API}/session/issue?code=${code}`,
 			method: 'GET'
 		};
+	},
+	destroy: {
+		url: `${PUBLIC_AUTH_API}/session/destroy`,
+		method: 'GET'
+	},
+	check: {
+		url: `${PUBLIC_AUTH_API}/session/check`,
+		method: 'GET'
 	}
 };
 
-export const token = {
-	isValid: {
-		url: `${PUBLIC_AUTH_API}/token/valid`,
-		method: 'GET'
-	},
-	refresh: {
-		url: `${PUBLIC_AUTH_API}/token/refresh`,
-		method: 'GET'
-	},
-	issue: (code: string) => {
-		return {
-			url: `${PUBLIC_AUTH_API}/token/issue?code=${code}`,
-			method: 'GET'
-		};
-	}
-};
-
-export const user = {
+export const member = {
 	profile: {
-		url: `${PUBLIC_AUTH_API}/user/profile`,
-		method: 'GET'
-	},
-  logout: { 
-    url: `${PUBLIC_AUTH_API}/user/logout`,
-    method: 'GET'
-  }
+		get: {
+			url: `${PUBLIC_MEMBER_API}/member/profile`,
+			method: 'GET'
+		},
+		update: {
+			url: `${PUBLIC_MEMBER_API}/member/profile`,
+			method: 'PUT'
+		}
+	}
 };
