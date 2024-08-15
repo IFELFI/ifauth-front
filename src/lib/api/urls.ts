@@ -1,14 +1,18 @@
 import { PUBLIC_AUTH_API, PUBLIC_MEMBER_API } from '$env/static/public';
 
-export const auth = {
-	local: {
-		signin: {
-			url: `${PUBLIC_AUTH_API}/local/signin`,
-			method: 'POST'
-		},
-		signup: {
-			url: `${PUBLIC_AUTH_API}/local/signup`,
-			method: 'POST'
+export const local = {
+	signin: {
+		url: `${PUBLIC_AUTH_API}/local/signin`,
+		method: 'POST'
+	},
+	signup: {
+		url: `${PUBLIC_AUTH_API}/local/signup`,
+		method: 'POST'
+	},
+	confirm: (token: string) => {
+		return {
+			url: `${PUBLIC_AUTH_API}/local/confirm?token=${token}`,
+			method: 'GET'
 		}
 	}
 };
