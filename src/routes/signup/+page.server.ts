@@ -1,6 +1,6 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { auth, session } from '$lib/api/urls.js';
-import type { AuthReplyData } from '$types/reply';
+import { local, session } from '$lib/api/urls.js';
+import type { IAuthReplyData } from '$types/reply';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { redirectStore } from '$stores/server/redirect.store';
 
@@ -48,7 +48,7 @@ export const actions = {
 			});
 		}
 
-		const signupApi = auth.local.signup;
+		const signupApi = local.signup;
 		const response = await fetch(signupApi.url, {
 			method: signupApi.method,
 			headers: {
@@ -65,7 +65,7 @@ export const actions = {
 			redirect(302, redirectUrl || PUBLIC_HOME_URL || '/');
 		}
 
-		const signupRes = (await response.json()) as AuthReplyData;
+		const signupRes = (await response.json()) as IAuthReplyData;
 		return fail(response.status, {
 			error: signupRes.message || 'Failed to sign up'
 		});

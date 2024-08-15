@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import { error } from '$stores/client/error.store';

@@ -65,3 +65,21 @@ export const miniCardLeft = style({
 	justifyContent: 'flex-start',
 	gap: '1rem'
 });
+
+export const contentContainer = style({
+	display: 'block',
+	width: '80%',
+	height: '100%',
+	backgroundColor: 'white',
+	alignItems: 'center',
+});
+
+export const content = style({
+	display: 'flex',
+	flexDirection: 'column',
+	padding: '1.5rem',
+	boxSizing: 'border-box',
+	width: '100%',
+	height: '100%',
+	alignItems: 'center',
+});
