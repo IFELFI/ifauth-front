@@ -11,6 +11,7 @@
 		authPath,
 		authButtonContainer
 	} from '$styles/auth.css';
+	import { defaultButton, defaultLink } from '$styles/global/root.css.js';
 
 	export let form;
 
@@ -38,8 +39,8 @@
 			<input type="text" placeholder="email" name="email" required />
 			<input type="password" placeholder="password" name="password" required />
 			<div class={authButtonContainer}>
-				<a href="signup">signup</a>
-				<button type="submit" class="btn">Login</button>
+				<a href="signup" class={defaultLink}>signup</a>
+				<button type="submit" class={defaultButton}>Login</button>
 			</div>
 		</form>
 	</div>

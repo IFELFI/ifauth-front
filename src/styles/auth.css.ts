@@ -100,37 +100,6 @@ export const authButtonContainer = style({
 	}
 });
 
-globalStyle(`${authButtonContainer} button`, {
-	padding: '0.5rem 1rem',
-	border: 'none',
-	borderRadius: '10px',
-	backgroundColor: 'rgb(255, 115, 0)',
-	color: 'white',
-	fontSize: '1rem',
-	fontWeight: 'bold',
-	cursor: 'pointer',
-	transition: 'background-color 0.3s',
-	textDecorationLine: 'none'
-});
-
-globalStyle(`${authButtonContainer} button:hover`, {
-	backgroundColor: 'rgb(255, 230, 0)'
-});
-
-globalStyle(`${authButtonContainer} button:disabled`, {
-	backgroundColor: 'rgba(0, 0, 0, 0.2)',
-	cursor: 'not-allowed'
-});
-
-globalStyle(`${authButtonContainer} a`, {
-	textDecorationLine: 'none',
-	color: 'rgb(255, 115, 0)',
-	fontSize: '1rem',
-	fontWeight: 'bold',
-	cursor: 'pointer',
-	transition: 'color 0.3s'
-});
-
 globalStyle(`${authButtonContainer} a:hover`, {
 	color: 'rgb(255, 230, 0)'
 });

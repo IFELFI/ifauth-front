@@ -10,6 +10,7 @@
 		signupForm,
 		authButtonContainer
 	} from '$styles/auth.css';
+	import { defaultButton, defaultLink } from '$styles/global/root.css.js';
 
 	export let form;
 
@@ -28,8 +29,8 @@
 			<input type="password" placeholder="password" name="password" required />
 			<input type="password" placeholder="confirm password" name="passwordConfirm" required />
 			<div class={authButtonContainer}>
-				<a href="signin">signin</a>
-				<button type="submit" class="btn">Sign up</button>
+				<a href="signin" class={defaultLink}>signin</a>
+				<button type="submit" class={defaultButton}>Sign up</button>
 			</div>
 		</form>
 	</div>

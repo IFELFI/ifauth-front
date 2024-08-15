@@ -71,7 +71,7 @@ export const contentContainer = style({
 	width: '80%',
 	height: '100%',
 	backgroundColor: 'white',
-	alignItems: 'center',
+	alignItems: 'center'
 });
 
 export const content = style({
@@ -82,4 +82,5 @@ export const content = style({
 	width: '100%',
 	height: '100%',
 	alignItems: 'center',
+	justifyContent: 'center'
 });
