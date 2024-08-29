@@ -3,6 +3,7 @@
 	import { error } from '$stores/client/error.store';
 	import { alertContainer } from '$styles/alert.css';
 	import { pageContainer } from '$styles/global/container.css';
+	import { whiteTheme } from '$styles/theme/white.css';
 	import '../styles/global/root.css';
 
 	let errorMessage = '';
@@ -14,7 +15,7 @@
 
 <title> IFELFI </title>
 
-<main class={pageContainer}>
+<main class={`${pageContainer} ${whiteTheme}`}>
 	<slot />
 	{#if $error}
 		<div class={alertContainer}>

@@ -12,6 +12,7 @@
 		authButtonContainer
 	} from '$styles/auth.css';
 	import { defaultButton, defaultLink } from '$styles/global/root.css.js';
+	import { pageContainer } from '$styles/pages/signin.css.js';
 
 	export let form;
 
@@ -19,29 +20,31 @@
 	$: redirect = $page.url.searchParams.get('redirect');
 </script>
 
-<Card size={2}>
-	<div slot="leftContent" class={authInfoContainer}>
-		<div class={authPath}>sign in</div>
-		<div class={authGuide}>Sign in with your email</div>
-	</div>
-	<div slot="rightContent" class={formContainer}>
-		<form
-			method="POST"
-			action="?/local"
-			class={loginForm}
-			use:enhance={() => {
-				return async ({ update }) => {
-					update({ reset: false });
-				};
-			}}
-		>
-			<input type="hidden" name="redirect" value={redirect} />
-			<input type="text" placeholder="email" name="email" required />
-			<input type="password" placeholder="password" name="password" required />
-			<div class={authButtonContainer}>
-				<a href="signup" class={defaultLink}>signup</a>
-				<button type="submit" class={defaultButton}>Login</button>
-			</div>
-		</form>
-	</div>
-</Card>
+<div class={pageContainer}>
+	<Card size={2}>
+		<div slot="leftContent" class={authInfoContainer}>
+			<div class={authPath}>sign in</div>
+			<div class={authGuide}>Sign in with your email</div>
+		</div>
+		<div slot="rightContent" class={formContainer}>
+			<form
+				method="POST"
+				action="?/local"
+				class={loginForm}
+				use:enhance={() => {
+					return async ({ update }) => {
+						update({ reset: false });
+					};
+				}}
+			>
+				<input type="hidden" name="redirect" value={redirect} />
+				<input type="text" placeholder="email" name="email" required />
+				<input type="password" placeholder="password" name="password" required />
+				<div class={authButtonContainer}>
+					<a href="signup" class={defaultLink}>signup</a>
+					<button type="submit" class={defaultButton}>Login</button>
+				</div>
+			</form>
+		</div>
+	</Card>
+</div>

@@ -1,3 +1,4 @@
+import { theme } from '../../styles/theme/contract.css';
 import { globalStyle, style } from '@vanilla-extract/css';
 
 globalStyle('html', {
@@ -16,9 +17,31 @@ globalStyle('body', {
 	WebkitUserSelect: 'none',
 	MozUserSelect: 'none',
 	msUserSelect: 'none',
-	backgroundColor: 'rgba(0, 0, 0, 0.05)',
-	color: 'rgba(0, 0, 0, 0.8)'
+	color: 'rgba(0, 0, 0, 0.8)',
+	backgroundColor: 'white'
 });
+
+export const fullPage = style({
+	width: '100%',
+	height: '100%'
+});
+
+export const flexCenter = style([
+	fullPage,
+	{
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
+	}
+]);
+
+export const defaultPageContainer = style([
+	flexCenter,
+	{
+		backgroundColor: theme.page.background,
+		color: theme.text.normal
+	}
+]);
 
 export const defaultLink = style({
 	textDecorationLine: 'none',

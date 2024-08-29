@@ -1,10 +1,14 @@
+import { defaultPageContainer } from '../../styles/global/root.css';
 import { style } from '@vanilla-extract/css';
+
+export const pageContainer = defaultPageContainer;
 
 export const homeContainer = style({
 	display: 'flex',
 	width: '100%',
 	height: '100%',
 	flexDirection: 'column',
+	alignItems: 'flex-end',
 	justifyContent: 'center',
 	gap: '1rem'
 });
