@@ -45,14 +45,14 @@ export const defaultPageContainer = style([
 
 export const defaultLink = style({
 	textDecorationLine: 'none',
-	color: 'rgb(255, 115, 0)',
+	color: theme.primary.normal,
 	fontSize: '1rem',
 	fontWeight: 'bold',
 	cursor: 'pointer',
 	transition: 'color 0.3s',
 
 	':hover': {
-		color: 'rgb(255, 230, 0)'
+		color: theme.primary.light
 	}
 });
 
@@ -60,7 +60,7 @@ export const defaultButton = style({
 	padding: '0.5rem 1rem',
 	border: 'none',
 	borderRadius: '10px',
-	backgroundColor: 'rgb(255, 115, 0)',
+	backgroundColor: theme.primary.normal,
 	color: 'white',
 	fontSize: '1rem',
 	fontWeight: 'bold',
@@ -69,7 +69,7 @@ export const defaultButton = style({
 	textDecorationLine: 'none',
 
 	':hover': {
-		backgroundColor: 'rgb(255, 230, 0)'
+		backgroundColor: theme.primary.light
 	},
 
 	':disabled': {

@@ -3,16 +3,7 @@
 	import { page } from '$app/stores';
 	import { error } from '$stores/client/error.store';
 	import Card from '$components/Card.svelte';
-	import {
-		loginForm,
-		formContainer,
-		authGuide,
-		authInfoContainer,
-		authPath,
-		authButtonContainer
-	} from '$styles/auth.css';
-	import { defaultButton, defaultLink } from '$styles/global/root.css.js';
-	import { pageContainer } from '$styles/pages/signin.css.js';
+	import { authButtonContainer, authForm, authFormButton, authFormInput, authFormLink, authGuide, authInfoContainer, authPath, formContainer, pageContainer } from '$styles/pages/auth.css.js';
 
 	export let form;
 
@@ -30,19 +21,19 @@
 			<form
 				method="POST"
 				action="?/local"
-				class={loginForm}
+				class={authForm}
 				use:enhance={() => {
 					return async ({ update }) => {
 						update({ reset: false });
 					};
 				}}
 			>
-				<input type="hidden" name="redirect" value={redirect} />
-				<input type="text" placeholder="email" name="email" required />
-				<input type="password" placeholder="password" name="password" required />
+				<input type="hidden" name="redirect" value={redirect} class={authFormInput} />
+				<input type="text" placeholder="email" name="email" required class={authFormInput} />
+				<input type="password" placeholder="password" name="password" required class={authFormInput}/>
 				<div class={authButtonContainer}>
-					<a href="signup" class={defaultLink}>signup</a>
-					<button type="submit" class={defaultButton}>Login</button>
+					<a href="signup" class={authFormLink}>signup</a>
+					<button type="submit" class={authFormButton}>Login</button>
 				</div>
 			</form>
 		</div>

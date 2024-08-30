@@ -3,9 +3,9 @@ import { theme } from './contract.css';
 
 export const darkTheme = createTheme(theme, {
 	primary: {
-		normal: 'black',
-		dark: 'black',
-		light: 'black'
+		normal: '#290159',
+		dark: '#100124',
+		light: '#7202fa'
 	},
 	page: {
 		background: '#000000',

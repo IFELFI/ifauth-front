@@ -5,7 +5,7 @@ export const whiteTheme = createTheme(theme, {
 	primary: {
 		normal: '#ff7700',
 		dark: '#CF6100',
-		light: '#ff8955'
+		light: '#ffe600'
 	},
 	page: {
 		background: '#F5F5F5',
