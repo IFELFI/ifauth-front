@@ -3,8 +3,9 @@ import { local, session } from '$lib/api/urls.js';
 import type { IAuthReplyData } from '$types/reply';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { redirectStore } from '$stores/server/redirect.store';
+import type { PageServerLoad } from '../$types';
 
-export const load = async ({ cookies }) => {
+export const load: PageServerLoad = async ({ cookies }) => {
 	let redirectUrl: string | null = null;
 
 	redirectStore.subscribe((value) => {

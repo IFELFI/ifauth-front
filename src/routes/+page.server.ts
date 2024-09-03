@@ -2,10 +2,10 @@ import type { PageServerLoad } from './$types';
 import { session } from '$lib/api/urls';
 
 export const load: PageServerLoad<{ valid: boolean }> = async ({ cookies, fetch, url }) => {
-	if (process.env.NODE_ENV !== 'development') {
+  if (process.env.NODE_ENV !== 'development') {
 		const loggedIn = url.searchParams.get('loggedIn');
 		if (loggedIn === 'true') {
-			return {
+      return {
 				valid: true
 			};
 		}

@@ -3,8 +3,9 @@ import { PUBLIC_HOME_URL } from '$env/static/public';
 import { local, session } from '$lib/api/urls';
 import type { IAuthReplyData } from '$types/reply.js';
 import { redirectStore } from '$stores/server/redirect.store.js';
+import type { PageServerLoad } from '../$types';
 
-export const load = async ({ cookies, url }) => {
+export const load: PageServerLoad = async ({ cookies, url }) => {
 	let redirectUrl = url.searchParams.get('redirect');
 	if (redirectUrl) redirectStore.set(redirectUrl);
 	else {

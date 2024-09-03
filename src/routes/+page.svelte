@@ -8,7 +8,7 @@
 		infoTitle,
 		homeContainer,
 		pageContainer
-	} from '$styles/pages/home.css.js';
+	} from '$styles/pages/home.css';
 
 	export let data;
 </script>

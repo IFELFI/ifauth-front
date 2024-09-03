@@ -1,6 +1,6 @@
 <script>
 	import Logo from '$components/Logo.svelte';
-	import { content } from '$styles/card.css.js';
+	import { content } from '$styles/card.css';
 	import { defaultButton } from '$styles/global/root.css';
 	import { pageContainer } from '$styles/pages/profile.css';
 
