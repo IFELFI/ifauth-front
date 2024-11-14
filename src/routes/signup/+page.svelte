@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Card from '$components/Card.svelte';
+	import Card from '$components/card.svelte';
 	import { error } from '$stores/client/error.store';
 
 	export let form;

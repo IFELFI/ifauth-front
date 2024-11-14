@@ -12,10 +12,10 @@
 
 <title> IFELFI </title>
 
-<main class={''}>
+<main class="h-full w-full items-center justify-center">
 	<slot />
 	{#if $error}
-		<div class={''}>
+		<div class="">
 			<Alert message={errorMessage} />
 		</div>
 	{/if}

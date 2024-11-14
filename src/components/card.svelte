@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Logo from './Logo.svelte';
+	import Logo from './logo.svelte';
 
 	export let size: number = 6;
 	export let text: string = 'ifelfi';
