@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { card, cardContainer, cardLeft, miniCardLeft } from '$styles/global/container.css';
+	import { card, cardContainer, cardLeft, miniCardLeft } from '$styles/card.css';
 	import Logo from './Logo.svelte';
 
 	export let size: number = 6;

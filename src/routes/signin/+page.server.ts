@@ -1,10 +1,11 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { PUBLIC_HOME_URL } from '$env/static/public';
-import { auth, session } from '$lib/api/urls';
-import type { AuthReplyData } from '$types/reply.js';
+import { local, session } from '$lib/api/urls';
+import type { IAuthReplyData } from '$types/reply.js';
 import { redirectStore } from '$stores/server/redirect.store.js';
+import type { PageServerLoad } from '../$types';
 
-export const load = async ({ cookies, url }) => {
+export const load: PageServerLoad = async ({ cookies, url }) => {
 	let redirectUrl = url.searchParams.get('redirect');
 	if (redirectUrl) redirectStore.set(redirectUrl);
 	else {
@@ -37,7 +38,7 @@ export const actions = {
 			});
 		}
 
-		const signinApi = auth.local.signin;
+		const signinApi = local.signin;
 		const response = await fetch(signinApi.url, {
 			method: signinApi.method,
 			headers: {
@@ -49,7 +50,7 @@ export const actions = {
 			})
 		});
 
-		const signinRes = (await response.json()) as AuthReplyData;
+		const signinRes = (await response.json()) as IAuthReplyData;
 		if (response.status === 200) {
 			if (!signinRes.code) return fail(400, { error: 'No code returned' });
 			const sessionApi = session.issue(signinRes.code);
@@ -57,8 +58,6 @@ export const actions = {
 				credentials: 'include',
 				method: sessionApi.method
 			});
-
-			console.log(sessionRes);
 
 			if (sessionRes.status === 200) {
 				if (redirectUrl) {

@@ -1,10 +1,14 @@
+import { defaultButton, defaultPageContainer } from '../../styles/global/root.css';
 import { style } from '@vanilla-extract/css';
+
+export const pageContainer = defaultPageContainer;
 
 export const homeContainer = style({
 	display: 'flex',
 	width: '100%',
 	height: '100%',
 	flexDirection: 'column',
+	alignItems: 'flex-end',
 	justifyContent: 'center',
 	gap: '1rem'
 });
@@ -40,19 +44,6 @@ export const buttonContainer = style({
 	}
 });
 
-export const btn = style({
+export const homeButton = style([defaultButton,{
 	padding: '1rem',
-	borderRadius: '10px',
-	backgroundColor: 'rgb(255, 115, 0)',
-	color: 'white',
-	fontSize: '1rem',
-	fontWeight: 'bold',
-	cursor: 'pointer',
-	transition: 'background-color 0.3s',
-	textDecorationLine: 'none',
-	selectors: {
-		'&:hover': {
-			backgroundColor: 'rgb(255, 230, 0)'
-		}
-	}
-});
+}]);

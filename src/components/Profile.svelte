@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { Profile } from '$types/data';
 	import Loading from './Loading.svelte';
 	import defaultImage from '$lib/assets/default.svg';
 	import { getContext } from 'svelte';
 	import type { Writable } from 'svelte/store';
+	import type { IProfile } from '$types/data';
 
-	export let profile: Profile | null;
+	export let profile: IProfile | null;
 
 	$: language = getContext<Writable<string>>('language');
 </script>
@@ -101,7 +101,6 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		-ms-transform: translate(-50%, -50%);
 		text-align: center;
 	}
 

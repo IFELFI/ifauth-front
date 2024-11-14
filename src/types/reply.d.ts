@@ -1,13 +1,21 @@
-import type { Profile } from './data';
+import type { IProfile } from './data';
 
-export interface AuthReplyData {
+export interface IAuthReplyData {
 	code?: string;
 	message?: string;
 }
 
-export interface ReplyData<T = undefined> {
+export interface IReply<T = undefined> {
 	message: string;
 	data: T;
 }
 
-export interface ProfileReplyData extends ReplyData<Profile> {}
+export interface IProfileReply extends IReply<IProfile> {}
+
+export interface IExceptionResponse {
+	statusCode: number;
+	error: string;
+	message: string;
+	path: string;
+	timestamp: string;
+}

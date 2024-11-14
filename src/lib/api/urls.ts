@@ -13,7 +13,7 @@ export const local = {
 		return {
 			url: `${PUBLIC_AUTH_API}/local/confirm?token=${token}`,
 			method: 'GET'
-		}
+		};
 	}
 };
 

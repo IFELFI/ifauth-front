@@ -1,24 +1,16 @@
-import { style } from '@vanilla-extract/css';
-
-export const pageContainer = style({
-	display: 'flex',
-	width: '100%',
-	height: '100%',
-	flexDirection: 'column',
-	alignItems: 'center',
-	justifyContent: 'center'
-});
+import { style } from "@vanilla-extract/css";
+import { theme } from "./theme/contract.css";
 
 export const cardContainer = style({
 	display: 'block',
 	padding: '4rem',
 	borderRadius: '2rem',
-	backgroundColor: 'white',
 	justifyContent: 'center',
 	alignContent: 'center',
 	alignItems: 'center',
 	justifyItems: 'center',
 	boxSizing: 'border-box',
+	backgroundColor: theme.page.contentContainer,
 
 	width: 'clamp(35rem, 70%, 43rem)',
 	height: 'auto',
@@ -64,4 +56,23 @@ export const miniCardLeft = style({
 	alignItems: 'flex-start',
 	justifyContent: 'flex-start',
 	gap: '1rem'
+});
+
+export const contentContainer = style({
+	display: 'block',
+	width: '80%',
+	height: '100%',
+	backgroundColor: 'white',
+	alignItems: 'center'
+});
+
+export const content = style({
+	display: 'flex',
+	flexDirection: 'column',
+	padding: '1.5rem',
+	boxSizing: 'border-box',
+	width: '100%',
+	height: '100%',
+	alignItems: 'center',
+	justifyContent: 'center'
 });
