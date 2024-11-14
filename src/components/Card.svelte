@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { card, cardContainer, cardLeft, miniCardLeft } from '$styles/card.css';
 	import Logo from './Logo.svelte';
 
 	export let size: number = 6;
 	export let text: string = 'ifelfi';
 </script>
 
-<div class={cardContainer}>
-	<div class={card}>
-		<div class={size >= 6 ? `${cardLeft}` : `${miniCardLeft}`}>
+<div class={''}>
+	<div class={''}>
+		<div class={''}>
 			<Logo {text} {size} />
 			<slot name="leftContent" />
 		</div>

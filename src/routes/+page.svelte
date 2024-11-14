@@ -1,38 +1,30 @@
 <script lang="ts">
 	import Card from '$components/Card.svelte';
-	import {
-		homeButton,
-		buttonContainer,
-		infoContainer,
-		infoText,
-		infoTitle,
-		homeContainer,
-		pageContainer
-	} from '$styles/pages/home.css';
+	import 'globals';
 
 	export let data;
 </script>
 
-<div class={pageContainer}>
+<div class={''}>
 	<Card size={6}>
-		<div class={homeContainer} slot="rightContent">
-			<div class={infoContainer}>
-				<div class={infoTitle}>Manage your profile</div>
-				<div class={infoText}>
+		<div class={''} slot="rightContent">
+			<div class={''}>
+				<div class={''}>Manage your profile</div>
+				<div class={''}>
 					IFAUTH is an integrated authentication service for IFELFI
 					<br />
 					It provides a secure and reliable way to authenticate users
 				</div>
 			</div>
 			{#if data.valid}
-				<div class={buttonContainer}>
-					<a href="profile" class={homeButton}>Profile</a>
-					<a href="logout" class={homeButton} data-sveltekit-reload>Logout</a>
+				<div class={''}>
+					<a href={'profile'} class={''}>Profile</a>
+					<a href={'logout'} class={''} data-sveltekit-reload>Logout</a>
 				</div>
 			{:else}
-				<div class={buttonContainer}>
-					<a href="signin" class={homeButton} data-sveltekit-reload>Sign in</a>
-					<a href="signup" class={homeButton} data-sveltekit-reload>Sign up</a>
+				<div class={''}>
+					<a href={'signin'} class={''} data-sveltekit-reload>Sign in</a>
+					<a href={'signup'} class={''} data-sveltekit-reload>Sign up</a>
 				</div>
 			{/if}
 		</div>

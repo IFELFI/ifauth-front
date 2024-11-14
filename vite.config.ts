@@ -1,10 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig({
-	plugins: [sveltekit(), vanillaExtractPlugin()],
+	plugins: [sveltekit()],
   resolve: {
     alias: {
       "@lib": "src/lib",
