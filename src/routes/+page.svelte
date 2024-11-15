@@ -1,40 +1,28 @@
 <script lang="ts">
-	import Card from '$components/Card.svelte';
-	import {
-		homeButton,
-		buttonContainer,
-		infoContainer,
-		infoText,
-		infoTitle,
-		homeContainer,
-		pageContainer
-	} from '$styles/pages/home.css';
+	import BaseLayout from '$components/layouts/base_layout.svelte';
+	import Link from '$components/buttons/link.svelte';
 
 	export let data;
 </script>
 
-<div class={pageContainer}>
-	<Card size={6}>
-		<div class={homeContainer} slot="rightContent">
-			<div class={infoContainer}>
-				<div class={infoTitle}>Manage your profile</div>
-				<div class={infoText}>
-					IFAUTH is an integrated authentication service for IFELFI
+<div class="flex-center full-size justify-center items-center">
+	<BaseLayout logo>
+		<div class="flex-center flex-col gap-5">
+			<div class="flex justify-start flex-col">
+				<p>
+					Sign in or sign up to try our services
 					<br />
-					It provides a secure and reliable way to authenticate users
-				</div>
+					MandaCode provides various services for you
+				</p>
 			</div>
-			{#if data.valid}
-				<div class={buttonContainer}>
-					<a href="profile" class={homeButton}>Profile</a>
-					<a href="logout" class={homeButton} data-sveltekit-reload>Logout</a>
-				</div>
-			{:else}
-				<div class={buttonContainer}>
-					<a href="signin" class={homeButton} data-sveltekit-reload>Sign in</a>
-					<a href="signup" class={homeButton} data-sveltekit-reload>Sign up</a>
-				</div>
-			{/if}
+			<div class="flex-center gap-5">
+				{#if data.valid}
+					<Link to="/logout" reload>Logout</Link>
+				{:else}
+					<Link to="/signin" underline>Sign in</Link>
+					<Link to="/signup" underline>Sign up</Link>
+				{/if}
+			</div>
 		</div>
-	</Card>
+	</BaseLayout>
 </div>

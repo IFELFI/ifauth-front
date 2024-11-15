@@ -1,19 +1,16 @@
 <script>
-	import Logo from '$components/Logo.svelte';
-	import { content } from '$styles/card.css';
-	import { defaultButton } from '$styles/global/root.css';
-	import { pageContainer } from '$styles/pages/profile.css';
+	import Link from '$components/buttons/link.svelte';
+	import BaseLayout from '$components/layouts/base_layout.svelte';
 
 	export let data;
 </script>
 
-<div class={pageContainer}>
-	<div class={content}>
-		<Logo text="ifauth" />
-		<h2>{data.body.message}</h2>
-		<p>Thank you for confirming your email. You can now sign in with your email and password.</p>
-		<a href="signin">
-			<button class={defaultButton}> Sign in </button>
-		</a>
-	</div>
+<div class="flex-center full-size">
+	<BaseLayout logo>
+		<div class="flex-center flex-col px-10 gap-5">
+			<h2 class="font-bold text-2xl">{data.body.message}</h2>
+			<p>Thank you for confirming your email. You can now sign in with your email and password.</p>
+			<Link to="signin" underline>Sign in</Link>
+		</div>
+	</BaseLayout>
 </div>
