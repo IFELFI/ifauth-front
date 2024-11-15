@@ -1,6 +1,6 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { local, session } from '$lib/api/urls.js';
-import type { IAuthReplyData } from '$types/reply';
+import type { AuthResponse } from '$types/reply';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { redirectStore } from '$stores/server/redirect.store';
 import type { PageServerLoad } from '../$types';
@@ -66,7 +66,7 @@ export const actions = {
 			redirect(302, redirectUrl || PUBLIC_HOME_URL || '/');
 		}
 
-		const signupRes = (await response.json()) as IAuthReplyData;
+		const signupRes = (await response.json()) as AuthResponse;
 		return fail(response.status, {
 			error: signupRes.message || 'Failed to sign up'
 		});

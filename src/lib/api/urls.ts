@@ -1,4 +1,4 @@
-import { PUBLIC_AUTH_API, PUBLIC_MEMBER_API } from '$env/static/public';
+import { PUBLIC_AUTH_API } from '$env/static/public';
 
 export const local = {
 	signin: {
@@ -31,18 +31,5 @@ export const session = {
 	check: {
 		url: `${PUBLIC_AUTH_API}/session/check`,
 		method: 'GET'
-	}
-};
-
-export const member = {
-	profile: {
-		get: {
-			url: `${PUBLIC_MEMBER_API}/member/profile`,
-			method: 'GET'
-		},
-		update: {
-			url: `${PUBLIC_MEMBER_API}/member/profile`,
-			method: 'PUT'
-		}
 	}
 };
