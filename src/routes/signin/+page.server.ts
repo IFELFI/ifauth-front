@@ -1,7 +1,7 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { PUBLIC_HOME_URL } from '$env/static/public';
 import { local, session } from '$lib/api/urls';
-import type { IAuthReplyData } from '$types/reply.js';
+import type { AuthResponse } from '$types/reply.js';
 import { redirectStore } from '$stores/server/redirect.store.js';
 import type { PageServerLoad } from '../$types';
 
@@ -50,7 +50,7 @@ export const actions = {
 			})
 		});
 
-		const signinRes = (await response.json()) as IAuthReplyData;
+		const signinRes = (await response.json()) as AuthResponse;
 		if (response.status === 200) {
 			if (!signinRes.code) return fail(400, { error: 'No code returned' });
 			const sessionApi = session.issue(signinRes.code);
