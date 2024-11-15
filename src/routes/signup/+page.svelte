@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Card from '$components/card.svelte';
+	import Button from '$components/buttons/button.svelte';
+	import Link from '$components/buttons/link.svelte';
+	import BaseLayout from '$components/layouts/base_layout.svelte';
 	import { error } from '$stores/client/error.store';
 
 	export let form;
@@ -8,29 +10,35 @@
 	$: error.set(form?.error || '');
 </script>
 
-<div class={''}>
-	<Card size={2}>
-		<div slot="leftContent" class={''}>
-			<div class={''}>sign up</div>
-			<div class={''}>Sign up with your email</div>
-		</div>
-		<div slot="rightContent" class={''}>
-			<form method="POST" action="?/local" class={''} use:enhance>
-				<input type="text" placeholder="email" name="email" required class={''} />
-				<input type="text" placeholder="username" name="username" required class={''} />
-				<input type="password" placeholder="password" name="password" required class={''} />
+<div class="flex-center full-size">
+	<BaseLayout logo>
+		<div class="flex-center flex-col gap-5">
+			<div class="first-letter:uppercase">sign in with your email</div>
+			<form
+				method="POST"
+				action="?/local"
+				class="flex-center flex-col gap-5"
+				use:enhance={() => {
+					return async ({ update }) => {
+						update({ reset: false });
+					};
+				}}
+			>
+				<input type="text" placeholder="email" name="email" required />
+				<input type="text" placeholder="username" name="username" required />
+				<input type="password" placeholder="password" name="password" required />
 				<input
 					type="password"
 					placeholder="confirm password"
 					name="passwordConfirm"
 					required
-					class={''}
+					class="border-b border-gray-500"
 				/>
-				<div class={''}>
-					<a href={'signin'} class={''}>signin</a>
-					<button type="submit" class={''}>Sign up</button>
+				<div class="flex gap-5">
+					<Link to="/signin" underline>Sign in</Link>
+					<Button type="submit" weight="semibold" underline>Done</Button>
 				</div>
 			</form>
 		</div>
-	</Card>
+	</BaseLayout>
 </div>

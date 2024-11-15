@@ -4,16 +4,13 @@ import type { PageServerLoad } from '../$types';
 import type { IExceptionResponse } from '$types/reply';
 
 export const load: PageServerLoad = async ({ url, fetch }) => {
-	if (process.env.NODE_ENV !== 'production') {
-		const dev = url.searchParams.get('dev');
-		if (dev === 'true') {
-			return {
-				status: 200,
-				body: {
-					message: 'Email confirmed'
-				}
-			};
-		}
+	if (process.env.NODE_ENV === 'development') {
+		return {
+			status: 200,
+			body: {
+				message: 'Email confirmed'
+			}
+		};
 	}
 	const token = url.searchParams.get('token');
 	if (!token) {

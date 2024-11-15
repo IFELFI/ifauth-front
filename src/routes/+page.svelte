@@ -7,7 +7,7 @@
 
 <div class="flex-center full-size justify-center items-center">
 	<BaseLayout logo>
-		<div class="flex-center flex-col pt-5 gap-5">
+		<div class="flex-center flex-col gap-5">
 			<div class="flex justify-start flex-col">
 				<p>
 					Sign in or sign up to try our services
@@ -15,13 +15,12 @@
 					MandaCode provides various services for you
 				</p>
 			</div>
-			<div class="flex-center gap-2">
+			<div class="flex-center gap-5">
 				{#if data.valid}
-					<Link to="/profile">Profile</Link>
 					<Link to="/logout" reload>Logout</Link>
 				{:else}
-					<Link to="/signin" reload>Sign in</Link>
-					<Link to="/signup" reload>Sign up</Link>
+					<Link to="/signin" underline>Sign in</Link>
+					<Link to="/signup" underline>Sign up</Link>
 				{/if}
 			</div>
 		</div>

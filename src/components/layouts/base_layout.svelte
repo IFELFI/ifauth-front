@@ -10,8 +10,11 @@
     flex justify-center items-center flex-col
     border-4
     border-black rounded-full
+    gap-5
+    aspect-square
+    min-w-96
   "
-	style={`width: ${size * 10}px; height: ${size * 10}px;`}
+	style={`width: ${size * 10}px;`}
 >
 	{#if logo}
 		<Logo size={6} />

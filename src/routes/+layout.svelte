@@ -1,7 +1,9 @@
 <script lang="ts">
 	import '../app.css';
-	import Alert from '$components/Alert.svelte';
 	import { error } from '$stores/client/error.store';
+	import { page } from '$app/stores';
+	import Alert from '$components/alert.svelte';
+	import Link from '$components/buttons/link.svelte';
 
 	let errorMessage = '';
 
@@ -10,13 +12,18 @@
 	});
 </script>
 
-<title> IFELFI </title>
+<title> MandaCode </title>
 
-<main class="h-full w-full items-center justify-center">
+<main class="flex-center flex-col full-size items-center justify-center">
+	<nav class="flex w-full justify-start p-3 fixed top-0">
+		{#if $page.url.pathname !== '/'}
+			<Link to="/" underline>Home</Link>
+		{/if}
+	</nav>
 	<slot />
-	{#if $error}
-		<div class="">
+	<div class="flex w-full justify-end fixed bottom-0 p-3">
+		{#if $error}
 			<Alert message={errorMessage} />
-		</div>
-	{/if}
+		{/if}
+	</div>
 </main>
