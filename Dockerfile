@@ -17,4 +17,6 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/.env ./.env
 
+EXPOSE 3000
+
 ENTRYPOINT ["node", "-r", "dotenv/config", "build"]
